@@ -3,42 +3,78 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
-  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+        content="S3-TIR: Coupled Spatial-Spectral Splatting for Thermal Novel View Synthesis.">
+  <meta name="keywords" content="S3-TIR, Thermal Imaging, 3D Gaussian Splatting, Novel View Synthesis">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nerfies: Deformable Neural Radiance Fields</title>
+  <title>S3-TIR: Coupled Spatial-Spectral Splatting for Thermal Novel View Synthesis</title>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'G-PYVRSFMDRL');
-  </script>
-
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
 
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.js"></script>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      prefix: 'tw-', 
+      corePlugins: {
+        preflight: false // 禁用基础重置，防止破坏 Bulma 样式
+      }
+    }
+  </script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+
+  <style>
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.9em;
+      font-family: sans-serif;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    .results-table thead tr {
+      background-color: #009879;
+      color: #ffffff;
+      text-align: center;
+    }
+    .results-table th, .results-table td {
+      padding: 12px 15px;
+      text-align: center;
+      border-bottom: 1px solid #dddddd;
+    }
+    .results-table tbody tr:nth-of-type(even) {
+      background-color: #f3f3f3;
+    }
+    .results-table tbody tr:last-of-type {
+      border-bottom: 2px solid #009879;
+    }
+    .best-result { font-weight: bold; color: #d32f2f; }
+    .second-result { text-decoration: underline; color: #f57c00; }
+    
+    /* 交互模块专用样式微调 */
+    .mode-btn.active {
+        background-color: #EEF2FF;
+        border-color: #4F46E5;
+        color: #4338ca;
+        border-width: 2px;
+    }
+  </style>
 </head>
 <body>
 
@@ -52,122 +88,56 @@
   </div>
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://keunhong.com">
+      <a class="navbar-item" href="#">
       <span class="icon">
           <i class="fas fa-home"></i>
       </span>
       </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://hypernerf.github.io">
-            HyperNeRF
-          </a>
-          <a class="navbar-item" href="https://nerfies.github.io">
-            Nerfies
-          </a>
-          <a class="navbar-item" href="https://latentfusion.github.io">
-            LatentFusion
-          </a>
-          <a class="navbar-item" href="https://photoshape.github.io">
-            PhotoShape
-          </a>
-        </div>
-      </div>
     </div>
-
   </div>
 </nav>
-
 
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Nerfies: Deformable Neural Radiance Fields</h1>
+          <h1 class="title is-1 publication-title">S<sup>3</sup>-TIR: Coupled Spatial-Spectral Splatting for Thermal Novel View Synthesis</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://keunhong.com">Keunhong Park</a><sup>1</sup>,</span>
+              <a href="#">Your Name</a><sup>1</sup>,</span>
             <span class="author-block">
-              <a href="https://utkarshsinha.com">Utkarsh Sinha</a><sup>2</sup>,</span>
+              <a href="#">Co-Author Name</a><sup>1</sup>,</span>
             <span class="author-block">
-              <a href="https://jonbarron.info">Jonathan T. Barron</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="http://sofienbouaziz.com">Sofien Bouaziz</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://www.danbgoldman.com">Dan B Goldman</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a><sup>1,2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
+              <a href="#">Supervisor Name</a><sup>1</sup>
             </span>
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>University of Washington,</span>
-            <span class="author-block"><sup>2</sup>Google Research</span>
+            <span class="author-block"><sup>1</sup>Northwestern Polytechnical University</span>
           </div>
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2011.12948"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
                   <span>Paper</span>
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2011.12948"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
                   <span>arXiv</span>
                 </a>
               </span>
-              <!-- Video Link. -->
               <span class="link-block">
-                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-youtube"></i>
-                  </span>
-                  <span>Video</span>
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
                 </a>
               </span>
-              <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://github.com/google/nerfies"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                  </a>
-              </span>
-              <!-- Dataset Link. -->
-              <span class="link-block">
-                <a href="https://github.com/google/nerfies/releases/tag/0.1"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="far fa-images"></i>
-                  </span>
-                  <span>Data</span>
-                  </a>
             </div>
-
           </div>
         </div>
       </div>
@@ -178,313 +148,410 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4"
-                type="video/mp4">
-      </video>
+      <img src="./static/images/teaser.png" class="center-image" alt="S3-TIR Teaser" style="width:100%"/>
       <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
-        free-viewpoint
-        portraits.
+        <br>
+        <strong>Conceptual Comparison.</strong> 
+        Unlike standard 3DGS (blurry) or Shape-Adaptive methods (textureless), our <strong>S<sup>3</sup>-TIR</strong> primitive uniquely couples an adaptive spatial support with internal spectral modulation, enabling sharp thermal boundaries with rich internal details.
       </h2>
     </div>
   </div>
 </section>
 
-
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-steve">
-          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/steve.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-chair-tp">
-          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/chair-tp.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-shiba">
-          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/shiba.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-fullbody">
-          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/fullbody.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-blueshirt">
-          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/blueshirt.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-mask">
-          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/mask.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-coffee">
-          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/coffee.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-toby">
-          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/toby2.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
 <section class="section">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            We present the first method capable of photorealistically reconstructing a non-rigidly
-            deforming scene using photos/videos captured casually from mobile phones.
+            Existing 3D Gaussian Splatting methods struggle to reconcile the unique physical nature of Thermal Infrared (TIR) imagery: the coexistence of diffusive smoothness driven by heat conduction and structural sharpness caused by material discontinuities.
           </p>
           <p>
-            Our approach augments neural radiance fields
-            (NeRF) by optimizing an
-            additional continuous volumetric deformation field that warps each observed point into a
-            canonical 5D NeRF.
-            We observe that these NeRF-like deformation fields are prone to local minima, and
-            propose a coarse-to-fine optimization method for coordinate-based models that allows for
-            more robust optimization.
-            By adapting principles from geometry processing and physical simulation to NeRF-like
-            models, we propose an elastic regularization of the deformation field that further
-            improves robustness.
-          </p>
-          <p>
-            We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
-            photos/videos into deformable NeRF
-            models that allow for photorealistic renderings of the subject from arbitrary
-            viewpoints, which we dub <i>"nerfies"</i>. We evaluate our method by collecting data
-            using a
-            rig with two mobile phones that take time-synchronized photos, yielding train/validation
-            images of the same pose at different viewpoints. We show that our method faithfully
-            reconstructs non-rigidly deforming scenes and reproduces unseen views with high
-            fidelity.
+            We present <strong>S<sup>3</sup>-TIR</strong>, introducing a <strong>Unified Generalized-Exponential Gabor Primitive</strong>. This primitive explicitly couples an adaptive spatial support with internal spectral modulation, acting as a physical truncation controller to strictly confine high-frequency thermal textures within sharp geometric boundaries. Furthermore, we propose a <strong>Frequency-Aware Deferred Splatting</strong> pipeline with a Multi-View Frequency Consistency Loss to resolve optimization ambiguities.
           </p>
         </div>
       </div>
     </div>
-    <!--/ Abstract. -->
-
-    <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video</h2>
-        <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-    <!--/ Paper video. -->
   </div>
 </section>
 
+<section class="section bg-light" style="background-color: #fafafa;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Interactive Visualization</h2>
+        <div class="content has-text-centered">
+          <p>
+            Explore the physical mechanism. Toggle between primitives to see how <strong>S<sup>3</sup>-TIR</strong> couples <span style="color:#4F46E5;font-weight:bold;">Shape Truncation</span> with <span style="color:#4F46E5;font-weight:bold;">Spectral Texture</span>.
+          </p>
+        </div>
+
+        <div class="tw-bg-gray-50 tw-border tw-border-gray-200 tw-rounded-xl tw-overflow-hidden tw-shadow-sm tw-flex tw-flex-col md:tw-flex-row tw-h-[600px] tw-text-left">
+            
+            <div class="tw-w-full md:tw-w-80 tw-bg-white tw-border-r tw-border-gray-200 tw-p-5 tw-flex tw-flex-col tw-overflow-y-auto tw-z-10">
+                
+                <div class="tw-mb-6">
+                    <h3 class="tw-text-xs tw-font-bold tw-text-gray-400 tw-uppercase tw-tracking-widest tw-mb-3">Primitive Type</h3>
+                    <div class="tw-space-y-2">
+                        <button onclick="setMode('3dgs')" id="btn-3dgs" class="mode-btn tw-w-full tw-text-left tw-px-3 tw-py-2 tw-rounded-md tw-text-sm tw-font-medium tw-border tw-transition-all tw-flex tw-items-center tw-gap-2 hover:tw-bg-gray-50">
+                            <span class="material-symbols-outlined tw-text-blue-500 tw-text-lg">blur_on</span> 3DGS
+                        </button>
+                        <button onclick="setMode('ges')" id="btn-ges" class="mode-btn tw-w-full tw-text-left tw-px-3 tw-py-2 tw-rounded-md tw-text-sm tw-font-medium tw-border tw-transition-all tw-flex tw-items-center tw-gap-2 hover:tw-bg-gray-50">
+                            <span class="material-symbols-outlined tw-text-green-500 tw-text-lg">crop_square</span> GES
+                        </button>
+                        <button onclick="setMode('wipes')" id="btn-wipes" class="mode-btn tw-w-full tw-text-left tw-px-3 tw-py-2 tw-rounded-md tw-text-sm tw-font-medium tw-border tw-transition-all tw-flex tw-items-center tw-gap-2 hover:tw-bg-gray-50">
+                            <span class="material-symbols-outlined tw-text-orange-500 tw-text-lg">waves</span> WIPES
+                        </button>
+                        <button onclick="setMode('s3tir')" id="btn-s3tir" class="mode-btn tw-w-full tw-text-left tw-px-3 tw-py-2 tw-rounded-md tw-text-sm tw-font-medium tw-border-2 tw-border-indigo-600 tw-bg-indigo-50 tw-text-indigo-700 tw-flex tw-items-center tw-gap-2 tw-shadow-sm">
+                            <span class="material-symbols-outlined tw-text-lg">verified</span> <strong>S³-TIR (Ours)</strong>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tw-space-y-6 tw-flex-1">
+                    <h3 class="tw-text-xs tw-font-bold tw-text-gray-400 tw-uppercase tw-tracking-widest">Parameters</h3>
+                    
+                    <div id="ctrl-beta">
+                        <div class="tw-flex tw-justify-between tw-text-xs tw-mb-1">
+                            <span class="tw-font-medium tw-text-gray-700">Sharpness (β)</span>
+                            <span id="val-beta" class="tw-text-gray-500 tw-font-mono">2.0</span>
+                        </div>
+                        <input type="range" id="input-beta" min="2.0" max="12.0" step="0.1" value="2.0" class="tw-w-full tw-h-1.5 tw-bg-gray-200 tw-rounded-lg tw-appearance-none tw-cursor-pointer">
+                    </div>
+
+                    <div id="ctrl-freq">
+                        <div class="tw-flex tw-justify-between tw-text-xs tw-mb-1">
+                            <span class="tw-font-medium tw-text-gray-700">Frequency (ω)</span>
+                            <span id="val-freq" class="tw-text-gray-500 tw-font-mono">0.0</span>
+                        </div>
+                        <input type="range" id="input-freq" min="0.0" max="20.0" step="0.5" value="0.0" class="tw-w-full tw-h-1.5 tw-bg-gray-200 tw-rounded-lg tw-appearance-none tw-cursor-pointer">
+                    </div>
+                    
+                    <div class="tw-flex tw-items-center tw-gap-2 tw-mt-4">
+                        <input type="checkbox" id="check-rotate" checked class="tw-accent-indigo-600">
+                        <label for="check-rotate" class="tw-text-xs tw-font-medium tw-text-gray-700">Auto Rotate</label>
+                    </div>
+                </div>
+
+                <div class="tw-mt-auto tw-p-3 tw-bg-gray-50 tw-rounded-lg tw-border tw-border-gray-200 tw-text-xs tw-text-gray-600 tw-leading-relaxed" id="desc-box">
+                    Select a primitive...
+                </div>
+            </div>
+
+            <div class="tw-flex-1 tw-flex tw-flex-col tw-p-4 tw-gap-4 tw-bg-gray-100 tw-overflow-hidden">
+                
+                <div class="tw-h-1/3 tw-bg-white tw-rounded-xl tw-shadow-sm tw-border tw-border-gray-200 tw-flex tw-flex-col tw-overflow-hidden">
+                    <div class="tw-px-4 tw-py-2 tw-border-b tw-border-gray-100 tw-bg-gray-50 tw-flex tw-justify-between tw-items-center">
+                        <span class="tw-text-[10px] tw-font-bold tw-text-gray-500 tw-uppercase">1D Signal Profile (Spatial)</span>
+                        <span class="tw-text-[10px] tw-text-gray-400 tw-font-mono">y = Envelope(x) × Texture(x)</span>
+                    </div>
+                    <div class="tw-relative tw-flex-1">
+                        <canvas id="canvas-1d" class="tw-w-full tw-h-full tw-block"></canvas>
+                    </div>
+                </div>
+
+                <div class="tw-h-2/3 tw-bg-black tw-rounded-xl tw-shadow-lg tw-overflow-hidden tw-relative" id="container-3d">
+                    <div class="tw-absolute tw-top-4 tw-left-4 tw-z-10 tw-pointer-events-none">
+                        <h2 class="tw-text-white tw-font-bold tw-text-sm">3D Energy Field</h2>
+                        <div class="tw-inline-block tw-px-2 tw-py-0.5 tw-bg-white/20 tw-rounded tw-backdrop-blur-sm tw-text-[10px] tw-text-white tw-font-mono tw-mt-1" id="label-mode">S³-TIR</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="section">
   <div class="container is-max-desktop">
-
-    <div class="columns is-centered">
-
-      <!-- Visual Effects. -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Visual Effects</h2>
-          <p>
-            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-            would be impossible without nerfies since it would require going through a wall.
-          </p>
-          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/dollyzoom-stacked.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-      <!--/ Visual Effects. -->
-
-      <!-- Matting. -->
-      <div class="column">
-        <h2 class="title is-3">Matting</h2>
-        <div class="columns is-centered">
-          <div class="column content">
-            <p>
-              As a byproduct of our method, we can also solve the matting problem by ignoring
-              samples that fall outside of a bounding box during rendering.
-            </p>
-            <video id="matting-video" controls playsinline height="100%">
-              <source src="./static/videos/matting.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <!--/ Matting. -->
-
-    <!-- Animation. -->
-    <div class="columns is-centered">
+    <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Animation</h2>
-
-        <!-- Interpolating. -->
-        <h3 class="title is-4">Interpolating states</h3>
+        <h2 class="title is-3">Method Overview</h2>
+        <img src="./static/images/pipeline.png" class="center-image" alt="S3-TIR Pipeline" style="width: 100%; margin-bottom: 20px;"/>
         <div class="content has-text-justified">
           <p>
-            We can also animate the scene by interpolating the deformation latent codes of two input
-            frames. Use the slider here to linearly interpolate between the left frame and the right
-            frame.
-          </p>
-        </div>
-        <div class="columns is-vcentered interpolation-panel">
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_start.jpg"
-                 class="interpolation-image"
-                 alt="Interpolate start reference image."/>
-            <p>Start Frame</p>
-          </div>
-          <div class="column interpolation-video-column">
-            <div id="interpolation-image-wrapper">
-              Loading...
-            </div>
-            <input class="slider is-fullwidth is-large is-info"
-                   id="interpolation-slider"
-                   step="1" min="0" max="100" value="0" type="range">
-          </div>
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_end.jpg"
-                 class="interpolation-image"
-                 alt="Interpolation end reference image."/>
-            <p class="is-bold">End Frame</p>
-          </div>
-        </div>
-        <br/>
-        <!--/ Interpolating. -->
-
-        <!-- Re-rendering. -->
-        <h3 class="title is-4">Re-rendering the input video</h3>
-        <div class="content has-text-justified">
-          <p>
-            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
-            viewpoint such as a stabilized camera by playing back the training deformations.
-          </p>
-        </div>
-        <div class="content has-text-centered">
-          <video id="replay-video"
-                 controls
-                 muted
-                 preload
-                 playsinline
-                 width="75%">
-            <source src="./static/videos/replay.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <!--/ Re-rendering. -->
-
-      </div>
-    </div>
-    <!--/ Animation. -->
-
-
-    <!-- Concurrent Work. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Related Links</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            There's a lot of excellent work that was introduced around the same time as ours.
-          </p>
-          <p>
-            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
-          </p>
-          <p>
-            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
-            both use deformation fields to model non-rigid scenes.
-          </p>
-          <p>
-            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
-          </p>
-          <p>
-            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
+            Our pipeline consists of three key stages:
+            1) <strong>Unified Primitive Construction</strong>: Decomposing thermal signals into spatial support ($\beta$) and spectral content (Gabor).
+            2) <strong>Frequency-Aware Deferred Splatting</strong>: Rasterizing intrinsic attributes into G-Buffers (Sharpness Map $\Psi_{\beta}$ and Frequency Map $\Psi_{high}$) before color composition.
+            3) <strong>Physics-Driven Optimization</strong>: Enforcing Multi-View Frequency Consistency to anchor physical properties to 3D geometry.
           </p>
         </div>
       </div>
     </div>
-    <!--/ Concurrent Work. -->
-
   </div>
 </section>
 
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Visual Comparisons</h2>
+    <div class="content has-text-centered">
+      <p>Comparison on the <strong>TI-NSD</strong> dataset. Notice the sharp edges and stable textures in our method.</p>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <h3 class="title is-5 has-text-centered">Standard 3DGS</h3>
+        <video autoplay controls muted loop playsinline width="100%">
+          <source src="./static/videos/3dgs_demo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-half">
+        <h3 class="title is-5 has-text-centered">S<sup>3</sup>-TIR (Ours)</h3>
+        <video autoplay controls muted loop playsinline width="100%">
+          <source src="./static/videos/ours_demo.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <h2 class="title is-3 has-text-centered" style="margin-top: 50px;">Quantitative Results</h2>
+    <div class="content">
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th colspan="3">RGBT-Scenes</th>
+            <th colspan="3">TI-NSD</th>
+            <th colspan="3">NTR</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>PSNR↑</th><th>SSIM↑</th><th>LPIPS↓</th>
+            <th>PSNR↑</th><th>SSIM↑</th><th>LPIPS↓</th>
+            <th>PSNR↑</th><th>SSIM↑</th><th>LPIPS↓</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>3DGS</td>
+            <td>24.467</td><td>0.866</td><td>0.202</td>
+            <td>32.436</td><td>0.936</td><td>0.202</td>
+            <td>32.178</td><td>0.964</td><td>0.205</td>
+          </tr>
+          <tr>
+            <td>GES (Re-impl)</td>
+            <td>19.895</td><td>0.781</td><td>0.302</td>
+            <td>26.487</td><td>0.900</td><td>0.239</td>
+            <td>32.861</td><td>0.976</td><td>0.185</td>
+          </tr>
+          <tr>
+            <td><strong>S<sup>3</sup>-TIR (Ours)</strong></td>
+            <td class="best-result">00.00</td><td class="best-result">0.000</td><td class="best-result">0.000</td>
+            <td class="best-result">00.00</td><td class="best-result">0.000</td><td class="best-result">0.000</td>
+            <td class="best-result">00.00</td><td class="best-result">0.000</td><td class="best-result">0.000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{park2021nerfies,
-  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
-  title     = {Nerfies: Deformable Neural Radiance Fields},
-  journal   = {ICCV},
-  year      = {2021},
+    <pre><code>@article{s3tir2026,
+  author    = {Names, Your and Names, Co-author},
+  title     = {S3-TIR: Coupled Spatial-Spectral Splatting for Thermal Novel View Synthesis},
+  journal   = {IJCAI},
+  year      = {2026},
 }</code></pre>
   </div>
 </section>
 
-
 <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-          <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            This means you are free to borrow the <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
-            we just ask that you link back to this page in the footer.
-            Please remember to remove the analytics code included in the header of the website which
-            you do not want on your website.
-          </p>
-        </div>
-      </div>
+      <p>Page template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.</p>
     </div>
   </div>
 </footer>
+
+<script>
+    // State
+    const visState = { mode: 's3tir', sigma: 1.0, beta: 6.0, freq: 8.0, autoRotate: true };
+    
+    // Description Map
+    const descriptions = {
+        '3dgs': "<strong>Standard 3DGS:</strong> Gaussian envelope (β=2). No texture. <br><span class='tw-text-red-500'>Result:</span> Over-smoothed edges.",
+        'ges': "<strong>GES:</strong> Box envelope (β>2). No texture. <br><span class='tw-text-yellow-600'>Result:</span> Sharp edges, but flat interior.",
+        'wipes': "<strong>WIPES:</strong> Gaussian (β=2) + Texture. <br><span class='tw-text-orange-500'>Result:</span> Texture leaks due to soft tail.",
+        's3tir': "<strong>S³-TIR:</strong> Box (β>2) + Texture. <br><span class='tw-text-indigo-600'>Result:</span> Sharp, textured, and truncated."
+    };
+
+    // --- 1D Drawing ---
+    const cvs1d = document.getElementById('canvas-1d');
+    const ctx1d = cvs1d.getContext('2d');
+
+    function getSignal(x) {
+        let env = 0, tex = 0; const r = Math.abs(x);
+        if (visState.mode === '3dgs' || visState.mode === 'wipes') env = Math.exp(-0.5 * Math.pow(r / visState.sigma, 2));
+        else env = Math.exp(-0.5 * Math.pow(r / visState.sigma, visState.beta));
+        
+        if (visState.mode === '3dgs' || visState.mode === 'ges') tex = 1.0;
+        else tex = 0.6 + 0.4 * Math.cos(visState.freq * x);
+        
+        return env * tex;
+    }
+
+    function draw1D() {
+        if(!cvs1d) return;
+        const rect = cvs1d.parentElement.getBoundingClientRect();
+        cvs1d.width = rect.width * 2; cvs1d.height = rect.height * 2;
+        const w = cvs1d.width; const h = cvs1d.height;
+        ctx1d.clearRect(0, 0, w, h); ctx1d.scale(2, 2);
+        
+        const width = w/2; const height = h/2;
+        const domain = 2.5; const scaleX = width/(domain*2);
+        const scaleY = height*0.7; const centerY = height*0.9; const centerX = width/2;
+        const toScreen = (x, y) => ({ x: centerX + x * scaleX, y: centerY - y * scaleY });
+
+        // GT Box
+        ctx1d.beginPath(); ctx1d.strokeStyle = '#e5e7eb'; ctx1d.lineWidth = 2; ctx1d.setLineDash([5, 5]);
+        const p1 = toScreen(-1, 0), p2 = toScreen(-1, 1.2), p3 = toScreen(1, 1.2), p4 = toScreen(1, 0);
+        ctx1d.moveTo(p1.x, p1.y); ctx1d.lineTo(p2.x, p2.y); ctx1d.lineTo(p3.x, p3.y); ctx1d.lineTo(p4.x, p4.y);
+        ctx1d.stroke(); ctx1d.setLineDash([]);
+
+        // Signal
+        ctx1d.beginPath(); ctx1d.lineWidth = 3;
+        if(visState.mode==='3dgs') ctx1d.strokeStyle = '#3B82F6';
+        else if(visState.mode==='ges') ctx1d.strokeStyle = '#22c55e';
+        else if(visState.mode==='wipes') ctx1d.strokeStyle = '#F97316';
+        else ctx1d.strokeStyle = '#4F46E5';
+
+        const steps = 300;
+        for(let i=0; i<=steps; i++) {
+            const x = -domain + (i/steps)*domain*2;
+            const y = getSignal(x);
+            const pos = toScreen(x, y);
+            if (i===0) ctx1d.moveTo(pos.x, pos.y); else ctx1d.lineTo(pos.x, pos.y);
+        }
+        ctx1d.stroke();
+    }
+
+    // --- 3D Three.js ---
+    let scene, camera, renderer, mesh, controls;
+    const container3d = document.getElementById('container-3d');
+
+    function init3D() {
+        if(!container3d) return;
+        scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x000000, 0.05);
+        camera = new THREE.PerspectiveCamera(45, container3d.clientWidth / container3d.clientHeight, 0.1, 100);
+        camera.position.set(3, 3, 3);
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(container3d.clientWidth, container3d.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container3d.appendChild(renderer.domElement);
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true; controls.autoRotate = true; controls.autoRotateSpeed = 2.0;
+
+        const geometry = new THREE.PlaneGeometry(4, 4, 128, 128);
+        const material = new THREE.MeshStandardMaterial({ side: THREE.DoubleSide, vertexColors: true, roughness: 0.4, metalness: 0.1 });
+        mesh = new THREE.Mesh(geometry, material);
+        mesh.rotation.x = -Math.PI / 2;
+        scene.add(mesh);
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); scene.add(ambientLight);
+        const dirLight = new THREE.DirectionalLight(0xffffff, 1.0); dirLight.position.set(5, 10, 7); scene.add(dirLight);
+        const gridHelper = new THREE.GridHelper(4, 8, 0x333333, 0x111111); scene.add(gridHelper);
+        
+        // GT Box on Ground
+        const squareGeo = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(-1, 0.02, -1), new THREE.Vector3(1, 0.02, -1),
+            new THREE.Vector3(1, 0.02, 1), new THREE.Vector3(-1, 0.02, 1),
+            new THREE.Vector3(-1, 0.02, -1)
+        ]);
+        const boundaryLine = new THREE.Line(squareGeo, new THREE.LineBasicMaterial({ color: 0x00ffff }));
+        scene.add(boundaryLine);
+
+        animate3D();
+    }
+
+    function updateMesh() {
+        if (!mesh) return;
+        const positions = mesh.geometry.attributes.position;
+        const count = positions.count;
+        const colors = [];
+        const colorObj = new THREE.Color();
+        const getThermalColor = (t) => {
+            if(t < 0.2) return colorObj.setHSL(0.75, 1.0, t * 2.5); 
+            if(t < 0.5) return colorObj.setHSL(0.0, 1.0, t); 
+            if(t < 0.8) return colorObj.setHSL(0.08, 1.0, 0.5 + (t-0.5)); 
+            return colorObj.setHSL(0.16, 1.0, 0.8 + (t-0.8)); 
+        };
+
+        for (let i = 0; i < count; i++) {
+            const x = positions.getX(i); const y = positions.getY(i); 
+            const r = Math.sqrt(x*x + y*y); const r_box = Math.max(Math.abs(x), Math.abs(y)); 
+            let env = 0, tex = 0;
+            if (visState.mode === '3dgs' || visState.mode === 'wipes') env = Math.exp(-0.5 * Math.pow(r / visState.sigma, 2));
+            else env = Math.exp(-0.5 * Math.pow(r_box / visState.sigma, visState.beta));
+            
+            if (visState.mode === '3dgs' || visState.mode === 'ges') tex = 1.0;
+            else tex = 0.6 + 0.4 * Math.cos(visState.freq * (x + y*0.2)); 
+            
+            const z = env * tex;
+            positions.setZ(i, z * 1.5); 
+            const c = getThermalColor(z);
+            colors.push(c.r, c.g, c.b);
+        }
+        mesh.geometry.attributes.position.needsUpdate = true;
+        mesh.geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+        mesh.geometry.computeVertexNormals(); 
+    }
+
+    function animate3D() {
+        requestAnimationFrame(animate3D);
+        if(visState.autoRotate) controls.update();
+        renderer.render(scene, camera);
+    }
+
+    // --- Control ---
+    function setMode(m) {
+        visState.mode = m;
+        // Buttons UI
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.className = "mode-btn tw-w-full tw-text-left tw-px-3 tw-py-2 tw-rounded-md tw-text-sm tw-font-medium tw-border tw-transition-all tw-flex tw-items-center tw-gap-2 hover:tw-bg-gray-50";
+        });
+        document.getElementById(`btn-${m}`).className = "mode-btn tw-w-full tw-text-left tw-px-3 tw-py-2 tw-rounded-md tw-text-sm tw-font-medium tw-border-2 tw-border-indigo-600 tw-bg-indigo-50 tw-text-indigo-700 tw-flex tw-items-center tw-gap-2 tw-shadow-sm";
+
+        // Logic Presets
+        const cBeta = document.getElementById('ctrl-beta'), cFreq = document.getElementById('ctrl-freq');
+        if (m === '3dgs') { visState.beta=2.0; visState.freq=0.0; cBeta.classList.add('tw-opacity-50','tw-pointer-events-none'); cFreq.classList.add('tw-opacity-50','tw-pointer-events-none'); }
+        else if (m === 'ges') { visState.beta=8.0; visState.freq=0.0; cBeta.classList.remove('tw-opacity-50','tw-pointer-events-none'); cFreq.classList.add('tw-opacity-50','tw-pointer-events-none'); }
+        else if (m === 'wipes') { visState.beta=2.0; visState.freq=10.0; cBeta.classList.add('tw-opacity-50','tw-pointer-events-none'); cFreq.classList.remove('tw-opacity-50','tw-pointer-events-none'); }
+        else if (m === 's3tir') { visState.beta=10.0; visState.freq=12.0; cBeta.classList.remove('tw-opacity-50','tw-pointer-events-none'); cFreq.classList.remove('tw-opacity-50','tw-pointer-events-none'); }
+
+        document.getElementById('input-beta').value = visState.beta;
+        document.getElementById('input-freq').value = visState.freq;
+        updateLabels();
+        document.getElementById('desc-box').innerHTML = descriptions[m];
+        document.getElementById('label-mode').innerText = m.toUpperCase().replace('S3TIR', 'S³-TIR');
+        
+        draw1D(); updateMesh();
+    }
+
+    function updateLabels() {
+        document.getElementById('val-beta').innerText = visState.beta;
+        document.getElementById('val-freq').innerText = visState.freq;
+    }
+
+    document.getElementById('input-beta').addEventListener('input', (e) => { visState.beta = parseFloat(e.target.value); updateLabels(); draw1D(); updateMesh(); });
+    document.getElementById('input-freq').addEventListener('input', (e) => { visState.freq = parseFloat(e.target.value); updateLabels(); draw1D(); updateMesh(); });
+    document.getElementById('check-rotate').addEventListener('change', (e) => { visState.autoRotate = e.target.checked; });
+
+    window.addEventListener('load', () => { init3D(); setMode('s3tir'); draw1D(); });
+    window.addEventListener('resize', () => { 
+        draw1D();
+        if(camera && renderer && container3d) {
+            camera.aspect = container3d.clientWidth / container3d.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container3d.clientWidth, container3d.clientHeight);
+        }
+    });
+</script>
 
 </body>
 </html>
