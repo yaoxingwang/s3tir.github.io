@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>S3-TIR: Coupled Spatial-Spectral Splatting for Thermal NVS</title>
+  <title>S3-TIR: Coupled Spatial-Spectral Splatting for Thermal Novel View Synthesis</title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -16,8 +16,6 @@
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -27,7 +25,7 @@
   </script>
 
   <style>
-    /* 表格样式 */
+    /* Table Styling */
     .results-table {
       width: 100%; border-collapse: collapse; margin: 20px 0;
       font-family: 'Noto Sans', sans-serif; font-size: 0.9rem;
@@ -36,17 +34,18 @@
     .results-table thead tr { background-color: #4F46E5; color: #ffffff; text-align: center; }
     .results-table th, .results-table td { padding: 12px 15px; text-align: center; border-bottom: 1px solid #eee; }
     .results-table tbody tr:nth-of-type(even) { background-color: #f9f9f9; }
+    .results-table tbody tr:last-of-type { border-bottom: 2px solid #4F46E5; }
     .best { font-weight: bold; color: #d32f2f; }
     .second { text-decoration: underline; color: #f57c00; }
     
-    /* 交互模块按钮激活态 */
+    /* Interactive Module Buttons */
     .mode-btn.active {
         background-color: #EEF2FF !important;
         border-color: #4F46E5 !important;
         color: #4338ca !important;
         border-width: 2px !important;
     }
-    /* 解决 Canvas 模糊问题 */
+    /* Canvas Rendering */
     canvas { display: block; }
   </style>
 </head>
@@ -76,7 +75,7 @@
           <h1 class="title is-1 publication-title">S<sup>3</sup>-TIR: Coupled Spatial-Spectral Splatting for Thermal Novel View Synthesis</h1>
           
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><a href="#">Author Name</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="#">Your Name</a><sup>1</sup>,</span>
             <span class="author-block"><a href="#">Co-Author Name</a><sup>1</sup>,</span>
             <span class="author-block"><a href="#">Supervisor Name</a><sup>1</sup></span>
           </div>
@@ -90,6 +89,11 @@
               <span class="link-block">
                 <a href="#" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span>
                 </a>
               </span>
               <span class="link-block">
@@ -108,10 +112,10 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <img src="./static/images/teaser.png" class="center-image" style="width:100%; border-radius:10px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);" alt="Teaser"/>
+      <img src="./static/images/teaser.png" class="center-image" style="width:100%; border-radius:10px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);" alt="S3-TIR Teaser"/>
       <h2 class="subtitle has-text-centered is-size-6" style="margin-top: 15px;">
-        <strong>Figure 1.</strong> 
-        Unlike standard 3DGS which is blurry, or Shape-Adaptive methods which lack texture, <strong>S<sup>3</sup>-TIR</strong> couples a box-like spatial support with internal spectral modulation, enabling sharp thermal boundaries with rich details.
+        <strong>Figure 1. Conceptual Comparison.</strong> 
+        Unlike standard 3DGS (blurry) or Shape-Adaptive methods (textureless), <strong>S<sup>3</sup>-TIR</strong> couples a box-like spatial support with internal spectral modulation, enabling sharp thermal boundaries with rich internal details.
       </h2>
     </div>
   </div>
@@ -124,10 +128,10 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Thermal Infrared (TIR) imagery presents a unique challenge: the coexistence of diffusive smoothness driven by heat conduction and structural sharpness caused by material discontinuities. Existing RGB-based methods struggle to reconcile these properties.
+            Existing 3D Gaussian Splatting methods struggle to reconcile the unique physical nature of Thermal Infrared (TIR) imagery: the coexistence of diffusive smoothness driven by heat conduction and structural sharpness caused by material discontinuities.
           </p>
           <p>
-            We present <strong>S<sup>3</sup>-TIR</strong>, a framework that introduces a <strong>Unified Generalized-Exponential Gabor Primitive</strong>. This primitive explicitly couples an adaptive spatial support with internal spectral modulation. Furthermore, we propose a <strong>Frequency-Aware Deferred Splatting</strong> pipeline with a Multi-View Frequency Consistency Loss to resolve optimization ambiguities. Extensive experiments demonstrate that S<sup>3</sup>-TIR achieves state-of-the-art performance, significantly reducing jittering artifacts and signal leakage.
+            We address this by recognizing that spatial geometry and spectral content are physically entangled properties. We present <strong>S<sup>3</sup>-TIR</strong>, a framework that introduces a <strong>Unified Generalized-Exponential Gabor Primitive</strong>. This primitive explicitly couples an adaptive spatial support with internal spectral modulation, acting as a physical truncation controller to strictly confine high-frequency thermal textures within sharp geometric boundaries. Extensive experiments demonstrate that S<sup>3</sup>-TIR achieves state-of-the-art performance on RGBT-Scenes and TI-NSD datasets.
           </p>
         </div>
       </div>
@@ -140,13 +144,13 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Method Overview</h2>
-        <img src="./static/images/pipeline.png" style="width: 100%; margin-bottom: 20px; border-radius: 8px;" alt="Pipeline"/>
+        <img src="./static/images/pipeline.png" style="width: 100%; margin-bottom: 20px; border-radius: 8px;" alt="S3-TIR Pipeline"/>
         <div class="content has-text-justified">
           <p>
-            Our method consists of: 
-            (1) <strong>Unified Primitive Construction</strong> to decompose thermal signals; 
-            (2) <strong>Frequency-Aware Deferred Splatting</strong> to generate G-Buffers for sharpness and frequency; 
-            (3) <strong>Physics-Driven Optimization</strong> to enforce multi-view consistency.
+            Our pipeline consists of three key stages:
+            1) <strong>Unified Primitive Construction</strong>: Decomposing thermal signals into spatial support ($\beta$) and spectral content (Gabor).
+            2) <strong>Frequency-Aware Deferred Splatting</strong>: Rasterizing intrinsic attributes into G-Buffers (Sharpness Map $\Psi_{\beta}$ and Frequency Map $\Psi_{high}$).
+            3) <strong>Physics-Driven Optimization</strong>: Enforcing Multi-View Frequency Consistency to anchor physical properties to 3D geometry.
           </p>
         </div>
       </div>
@@ -154,89 +158,118 @@
   </div>
 </section>
 
-<section class="section has-background-light">
+<section class="section" style="background-color: #f8f9fa;">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Interactive Physics Visualization</h2>
+        <h2 class="title is-3">Interactive Physics Analysis</h2>
         <p class="subtitle is-6 mb-5">
-          Why does S<sup>3</sup>-TIR work? Explore the coupling of <strong>Shape Truncation</strong> and <strong>Spectral Texture</strong>.
+          <strong>Why S<sup>3</sup>-TIR works?</strong> Observe the dual-domain behavior. 
+          <span style="color:#4F46E5; font-weight:bold;">S<sup>3</sup>-TIR</span> is the only method that maintains high-frequency harmonics (Sharp Edges) without spatial leakage.
         </p>
 
-        <div class="tw-bg-white tw-border tw-border-gray-200 tw-rounded-xl tw-shadow-lg tw-flex tw-flex-col md:tw-flex-row tw-h-[650px] tw-text-left tw-overflow-hidden">
+        <div class="tw-bg-white tw-border tw-border-gray-300 tw-rounded-xl tw-shadow-xl tw-flex tw-flex-col lg:tw-flex-row tw-h-[800px] lg:tw-h-[600px] tw-text-left tw-overflow-hidden">
             
-            <div class="tw-w-full md:tw-w-80 tw-bg-gray-50 tw-border-r tw-border-gray-200 tw-p-6 tw-flex tw-flex-col tw-overflow-y-auto tw-z-10">
+            <div class="tw-w-full lg:tw-w-72 tw-bg-gray-50 tw-border-r tw-border-gray-200 tw-p-5 tw-flex tw-flex-col tw-overflow-y-auto tw-z-10">
                 
-                <div class="tw-mb-8">
-                    <h3 class="tw-text-xs tw-font-bold tw-text-gray-400 tw-uppercase tw-tracking-widest tw-mb-4">Select Primitive</h3>
-                    <div class="tw-space-y-3">
-                        <button onclick="setMode('3dgs')" id="btn-3dgs" class="mode-btn tw-w-full tw-text-left tw-px-4 tw-py-3 tw-rounded-lg tw-text-sm tw-font-medium tw-border tw-border-gray-300 tw-bg-white tw-flex tw-items-center tw-gap-3 hover:tw-bg-gray-100 tw-transition-all">
-                            <span class="material-symbols-outlined tw-text-blue-500">blur_on</span> 3DGS
+                <div class="tw-mb-6">
+                    <h3 class="tw-text-xs tw-font-bold tw-text-gray-400 tw-uppercase tw-tracking-widest tw-mb-3">Primitive Model</h3>
+                    <div class="tw-space-y-2">
+                        <button onclick="setMode('3dgs')" id="btn-3dgs" class="mode-btn tw-w-full tw-text-left tw-px-3 tw-py-3 tw-rounded-lg tw-text-sm tw-font-medium tw-border tw-border-gray-300 tw-bg-white tw-flex tw-items-center tw-gap-2 hover:tw-bg-gray-100 tw-transition-all">
+                            <div class="tw-w-3 tw-h-3 tw-rounded-full tw-bg-blue-500"></div> Standard 3DGS
                         </button>
-                        <button onclick="setMode('ges')" id="btn-ges" class="mode-btn tw-w-full tw-text-left tw-px-4 tw-py-3 tw-rounded-lg tw-text-sm tw-font-medium tw-border tw-border-gray-300 tw-bg-white tw-flex tw-items-center tw-gap-3 hover:tw-bg-gray-100 tw-transition-all">
-                            <span class="material-symbols-outlined tw-text-green-500">crop_square</span> GES
+                        <button onclick="setMode('ges')" id="btn-ges" class="mode-btn tw-w-full tw-text-left tw-px-3 tw-py-3 tw-rounded-lg tw-text-sm tw-font-medium tw-border tw-border-gray-300 tw-bg-white tw-flex tw-items-center tw-gap-2 hover:tw-bg-gray-100 tw-transition-all">
+                            <div class="tw-w-3 tw-h-3 tw-rounded-full tw-bg-green-500"></div> GES / 3D-HGS
                         </button>
-                        <button onclick="setMode('wipes')" id="btn-wipes" class="mode-btn tw-w-full tw-text-left tw-px-4 tw-py-3 tw-rounded-lg tw-text-sm tw-font-medium tw-border tw-border-gray-300 tw-bg-white tw-flex tw-items-center tw-gap-3 hover:tw-bg-gray-100 tw-transition-all">
-                            <span class="material-symbols-outlined tw-text-orange-500">waves</span> WIPES
+                        <button onclick="setMode('wipes')" id="btn-wipes" class="mode-btn tw-w-full tw-text-left tw-px-3 tw-py-3 tw-rounded-lg tw-text-sm tw-font-medium tw-border tw-border-gray-300 tw-bg-white tw-flex tw-items-center tw-gap-2 hover:tw-bg-gray-100 tw-transition-all">
+                            <div class="tw-w-3 tw-h-3 tw-rounded-full tw-bg-orange-500"></div> WIPES (Freq)
                         </button>
-                        <button onclick="setMode('s3tir')" id="btn-s3tir" class="mode-btn active tw-w-full tw-text-left tw-px-4 tw-py-3 tw-rounded-lg tw-text-sm tw-font-medium tw-border-2 tw-border-indigo-600 tw-bg-indigo-50 tw-text-indigo-700 tw-flex tw-items-center tw-gap-3 tw-shadow-sm">
-                            <span class="material-symbols-outlined">verified</span> <strong>S³-TIR (Ours)</strong>
+                        <button onclick="setMode('s3tir')" id="btn-s3tir" class="mode-btn active tw-w-full tw-text-left tw-px-3 tw-py-3 tw-rounded-lg tw-text-sm tw-font-medium tw-border-2 tw-border-indigo-600 tw-bg-indigo-50 tw-text-indigo-700 tw-flex tw-items-center tw-gap-2 tw-shadow-sm">
+                            <div class="tw-w-3 tw-h-3 tw-rounded-full tw-bg-indigo-600"></div> <strong>S³-TIR (Ours)</strong>
                         </button>
                     </div>
                 </div>
 
                 <div class="tw-space-y-6 tw-flex-1">
-                    <h3 class="tw-text-xs tw-font-bold tw-text-gray-400 tw-uppercase tw-tracking-widest">Parameters</h3>
+                    <h3 class="tw-text-xs tw-font-bold tw-text-gray-400 tw-uppercase tw-tracking-widest">Physics Parameters</h3>
                     
                     <div id="ctrl-beta">
-                        <div class="tw-flex tw-justify-between tw-text-xs tw-mb-2">
-                            <span class="tw-font-semibold tw-text-gray-700">Shape Sharpness (β)</span>
+                        <div class="tw-flex tw-justify-between tw-text-xs tw-mb-1">
+                            <span class="tw-font-semibold tw-text-gray-700">Spatial Decay (β)</span>
                             <span id="val-beta" class="tw-text-indigo-600 tw-font-mono">2.0</span>
                         </div>
-                        <input type="range" id="input-beta" min="2.0" max="12.0" step="0.1" value="2.0" class="tw-w-full tw-h-2 tw-bg-gray-200 tw-rounded-lg tw-appearance-none tw-cursor-pointer">
+                        <input type="range" id="input-beta" min="2.0" max="14.0" step="0.5" value="2.0" class="tw-w-full tw-h-2 tw-bg-gray-200 tw-rounded-lg tw-appearance-none tw-cursor-pointer tw-accent-indigo-600">
+                        <p class="tw-text-[10px] tw-text-gray-400 tw-mt-1">Controls edge sharpness (2=Soft, >10=Box)</p>
                     </div>
 
                     <div id="ctrl-freq">
-                        <div class="tw-flex tw-justify-between tw-text-xs tw-mb-2">
-                            <span class="tw-font-semibold tw-text-gray-700">Frequency (ω)</span>
+                        <div class="tw-flex tw-justify-between tw-text-xs tw-mb-1">
+                            <span class="tw-font-semibold tw-text-gray-700">Internal Freq (ω)</span>
                             <span id="val-freq" class="tw-text-indigo-600 tw-font-mono">0.0</span>
                         </div>
-                        <input type="range" id="input-freq" min="0.0" max="20.0" step="0.5" value="0.0" class="tw-w-full tw-h-2 tw-bg-gray-200 tw-rounded-lg tw-appearance-none tw-cursor-pointer">
+                        <input type="range" id="input-freq" min="0.0" max="25.0" step="1.0" value="0.0" class="tw-w-full tw-h-2 tw-bg-gray-200 tw-rounded-lg tw-appearance-none tw-cursor-pointer tw-accent-indigo-600">
+                        <p class="tw-text-[10px] tw-text-gray-400 tw-mt-1">Controls texture density</p>
                     </div>
-                    
-                    <div class="tw-flex tw-items-center tw-gap-2 tw-mt-4 tw-pt-4 tw-border-t tw-border-gray-200">
-                        <input type="checkbox" id="check-rotate" checked class="tw-w-4 tw-h-4 tw-text-indigo-600 tw-rounded">
-                        <label for="check-rotate" class="tw-text-xs tw-font-medium tw-text-gray-700">Auto-Rotate 3D View</label>
+                </div>
+
+                <div class="tw-mt-auto tw-p-3 tw-bg-white tw-border tw-border-gray-200 tw-rounded-lg tw-shadow-sm">
+                    <div class="tw-text-[10px] tw-font-bold tw-text-gray-400 tw-uppercase tw-mb-1">Analysis</div>
+                    <div id="desc-box" class="tw-text-xs tw-text-gray-700 tw-leading-relaxed">
+                        Select a primitive...
                     </div>
                 </div>
             </div>
 
-            <div class="tw-flex-1 tw-flex tw-flex-col tw-bg-white">
+            <div class="tw-flex-1 tw-grid tw-grid-rows-2 tw-bg-white">
                 
-                <div class="tw-h-2/5 tw-border-b tw-border-gray-200 tw-flex tw-flex-col tw-relative">
-                    <div class="tw-absolute tw-top-3 tw-left-4 tw-z-10">
-                        <span class="tw-text-[10px] tw-font-bold tw-text-gray-500 tw-uppercase tw-tracking-wider">1D Signal Profile (Cross-section)</span>
+                <div class="tw-grid tw-grid-cols-2 tw-border-b tw-border-gray-200 tw-h-full">
+                    
+                    <div class="tw-border-r tw-border-gray-200 tw-relative tw-p-4 tw-flex tw-flex-col">
+                        <div class="tw-flex tw-justify-between tw-items-center tw-mb-2">
+                            <span class="tw-text-[10px] tw-font-bold tw-text-gray-600 tw-uppercase">Spatial Domain ($x$)</span>
+                            <span class="tw-text-[9px] tw-px-1.5 tw-py-0.5 tw-bg-gray-100 tw-rounded tw-text-gray-500">Thermal Intensity</span>
+                        </div>
+                        <canvas id="canvas-spatial" class="tw-w-full tw-flex-1"></canvas>
+                        <div class="tw-absolute tw-bottom-2 tw-right-2 tw-flex tw-gap-2 tw-text-[9px] tw-text-gray-400">
+                            <span class="tw-flex tw-items-center tw-gap-1"><span class="tw-w-2 tw-h-0.5 tw-bg-gray-400 tw-border tw-border-gray-400"></span> GT</span>
+                            <span class="tw-flex tw-items-center tw-gap-1"><span class="tw-w-2 tw-h-0.5 tw-bg-indigo-600"></span> Model</span>
+                        </div>
                     </div>
-                    <div class="tw-flex-1 tw-w-full tw-h-full">
-                        <canvas id="canvas-1d" class="tw-w-full tw-h-full tw-block"></canvas>
+
+                    <div class="tw-relative tw-p-4 tw-flex tw-flex-col tw-bg-gray-50/50">
+                        <div class="tw-flex tw-justify-between tw-items-center tw-mb-2">
+                            <span class="tw-text-[10px] tw-font-bold tw-text-gray-600 tw-uppercase">Frequency Domain ($f$)</span>
+                            <span class="tw-text-[9px] tw-px-1.5 tw-py-0.5 tw-bg-gray-100 tw-rounded tw-text-gray-500">Log Magnitude</span>
+                        </div>
+                        <canvas id="canvas-freq" class="tw-w-full tw-flex-1"></canvas>
+                        <div class="tw-absolute tw-top-1/2 tw-right-4 tw-text-[9px] tw-text-red-500 tw-font-bold tw-opacity-0 tw-transition-opacity" id="high-freq-label">
+                            ← Sharp Edge (Harmonics)
+                        </div>
                     </div>
                 </div>
 
-                <div class="tw-h-3/5 tw-bg-black tw-relative tw-overflow-hidden" id="container-3d">
-                    <div class="tw-absolute tw-top-4 tw-left-4 tw-z-10 tw-pointer-events-none">
-                        <h2 class="tw-text-white tw-font-bold tw-text-sm tw-drop-shadow-md">3D Energy Field</h2>
-                        <div class="tw-inline-block tw-px-2 tw-py-0.5 tw-bg-white/20 tw-rounded tw-backdrop-blur-md tw-text-[10px] tw-text-white tw-font-mono tw-mt-1" id="label-mode">S³-TIR</div>
+                <div class="tw-relative tw-flex tw-flex-col tw-p-4">
+                    <div class="tw-flex tw-justify-between tw-items-center tw-mb-2 tw-z-10">
+                        <span class="tw-text-[10px] tw-font-bold tw-text-gray-600 tw-uppercase">2D Thermal Projection (Top-down)</span>
+                        <div class="tw-flex tw-gap-2">
+                            <span class="tw-text-[9px] tw-flex tw-items-center tw-gap-1"><span class="tw-w-2 tw-h-2 tw-border tw-border-cyan-400"></span> Physical Boundary</span>
+                            <span class="tw-text-[9px] tw-flex tw-items-center tw-gap-1"><span class="tw-w-2 tw-h-2 tw-bg-red-500/50"></span> Leakage</span>
+                        </div>
                     </div>
-                    <div class="tw-absolute tw-bottom-4 tw-left-4 tw-z-10 tw-pointer-events-none tw-w-64 tw-p-3 tw-bg-black/60 tw-backdrop-blur-sm tw-rounded-lg tw-border tw-border-white/10">
-                        <div id="desc-box" class="tw-text-xs tw-text-gray-200 tw-leading-relaxed">
-                            Select a primitive...
+                    
+                    <div class="tw-flex-1 tw-w-full tw-h-full tw-flex tw-items-center tw-justify-center tw-bg-gray-900 tw-rounded-lg tw-overflow-hidden tw-relative tw-border tw-border-gray-800">
+                        <canvas id="canvas-2d" width="400" height="200" class="tw-w-full tw-h-full tw-object-contain"></canvas>
+                        
+                        <div class="tw-absolute tw-bottom-3 tw-left-3">
+                            <div class="tw-px-2 tw-py-1 tw-bg-black/60 tw-backdrop-blur-sm tw-rounded tw-text-white tw-text-xs tw-font-mono" id="label-mode-overlay">
+                                S³-TIR
+                            </div>
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -329,20 +362,34 @@
 <script src="./static/js/index.js"></script>
 
 <script>
-    // === S3-TIR INTERACTIVE VISUALIZER LOGIC ===
-    const visState = { mode: 's3tir', sigma: 1.0, beta: 6.0, freq: 8.0, autoRotate: true };
-    const descriptions = {
-        '3dgs': "<strong>Standard 3DGS:</strong> Gaussian envelope (β=2) with no texture. <br><span class='tw-text-red-400'>Result:</span> Smooth but blurry geometry.",
-        'ges': "<strong>GES:</strong> Box-like envelope (β>2) with no texture. <br><span class='tw-text-yellow-400'>Result:</span> Sharp geometry, but flat interior.",
-        'wipes': "<strong>WIPES:</strong> Gaussian (β=2) with texture. <br><span class='tw-text-orange-400'>Result:</span> Texture 'leaks' outside the object.",
-        's3tir': "<strong>S³-TIR:</strong> Box (β>2) COUPLED with Texture. <br><span class='tw-text-indigo-400'>Result:</span> Sharp, textured, and physically consistent."
+    // State
+    const visState = { mode: 's3tir', sigma: 1.0, beta: 10.0, freq: 12.0 };
+    
+    const colors = {
+        '3dgs': '#3B82F6',   // Blue
+        'ges': '#10B981',    // Green
+        'wipes': '#F97316',  // Orange
+        's3tir': '#4F46E5',  // Indigo
+        'gt': '#9CA3AF'      // Gray
     };
 
-    // --- 1D Canvas ---
-    const cvs1d = document.getElementById('canvas-1d');
-    const ctx1d = cvs1d.getContext('2d');
+    const descriptions = {
+        '3dgs': "<strong>Standard 3DGS:</strong> <br>Spatial: Smooth Gaussian. <br>Frequency: Low-pass only. <br><span class='tw-text-red-500'>Fails to capture sharp edges or texture.</span>",
+        'ges': "<strong>GES / 3D-HGS:</strong> <br>Spatial: Sharp Box. <br>Frequency: Sinc-like (High freq) but no texture peak. <br><span class='tw-text-yellow-600'>Captures edges, misses texture.</span>",
+        'wipes': "<strong>WIPES:</strong> <br>Spatial: Gaussian + Texture. <br>Frequency: Band-pass (Peak at ω). <br><span class='tw-text-orange-500'>Texture leaks due to lack of high-freq harmonics.</span>",
+        's3tir': "<strong>S³-TIR (Ours):</strong> <br>Spatial: Box + Texture. <br>Frequency: Convolution of Sinc & Peak. <br><span class='tw-text-indigo-600'>Preserves high-freq harmonics (Sharp Edges) & Texture.</span>"
+    };
 
-    function getSignal(x) {
+    // Canvas Refs
+    const cvsSpatial = document.getElementById('canvas-spatial');
+    const ctxSpatial = cvsSpatial.getContext('2d');
+    const cvsFreq = document.getElementById('canvas-freq');
+    const ctxFreq = cvsFreq.getContext('2d');
+    const cvs2d = document.getElementById('canvas-2d');
+    const ctx2d = cvs2d.getContext('2d');
+
+    // --- Math Logic ---
+    function getSpatialY(x) {
         let env, tex; const r = Math.abs(x);
         if (visState.mode === '3dgs' || visState.mode === 'wipes') env = Math.exp(-0.5 * Math.pow(r / visState.sigma, 2));
         else env = Math.exp(-0.5 * Math.pow(r / visState.sigma, visState.beta));
@@ -352,172 +399,172 @@
         return env * tex;
     }
 
-    function draw1D() {
-        if(!cvs1d) return;
-        const rect = cvs1d.parentElement.getBoundingClientRect();
-        // 设置分辨率
-        cvs1d.width = rect.width * 2; cvs1d.height = rect.height * 2;
-        const w = cvs1d.width, h = cvs1d.height;
-        ctx1d.clearRect(0, 0, w, h); ctx1d.scale(2, 2);
-        
-        const width = w/2, height = h/2;
-        const domain = 2.5, scaleX = width/(domain*2), scaleY = height*0.7;
-        const centerX = width/2, centerY = height*0.9;
-        const toScreen = (x, y) => ({ x: centerX + x * scaleX, y: centerY - y * scaleY });
-
-        // GT Dashed Line
-        ctx1d.beginPath(); ctx1d.strokeStyle = '#d1d5db'; ctx1d.lineWidth = 2; ctx1d.setLineDash([5, 5]);
-        const p1=toScreen(-1,0), p2=toScreen(-1,1.2), p3=toScreen(1,1.2), p4=toScreen(1,0);
-        ctx1d.moveTo(p1.x, p1.y); ctx1d.lineTo(p2.x, p2.y); ctx1d.lineTo(p3.x, p3.y); ctx1d.lineTo(p4.x, p4.y);
-        ctx1d.stroke(); ctx1d.setLineDash([]);
-
-        // Signal Line
-        ctx1d.beginPath(); ctx1d.lineWidth = 3;
-        if(visState.mode==='3dgs') ctx1d.strokeStyle = '#3B82F6';
-        else if(visState.mode==='ges') ctx1d.strokeStyle = '#22c55e';
-        else if(visState.mode==='wipes') ctx1d.strokeStyle = '#F97316';
-        else ctx1d.strokeStyle = '#4F46E5';
-
-        const steps = 300;
-        for(let i=0; i<=steps; i++) {
-            const x = -domain + (i/steps)*domain*2;
-            const y = getSignal(x);
-            const pos = toScreen(x, y);
-            if(i===0) ctx1d.moveTo(pos.x, pos.y); else ctx1d.lineTo(pos.x, pos.y);
+    // Analytical Approx for Frequency Domain
+    function getFreqY(f) {
+        const w_tex = visState.freq; let val = 0;
+        if (visState.mode === '3dgs') val = Math.exp(-0.1 * Math.pow(f, 2)); 
+        else if (visState.mode === 'ges') val = Math.abs(Math.sin(f*1.5)/(f*1.5 + 0.1)) * 0.8 + Math.exp(-0.2*f);
+        else if (visState.mode === 'wipes') val = Math.exp(-0.1 * Math.pow(f, 2)) + 0.6 * Math.exp(-0.2 * Math.pow(f - w_tex, 2));
+        else if (visState.mode === 's3tir') {
+            const base = Math.exp(-0.1 * Math.pow(f, 2)); 
+            const tex_comp = 0.6 * Math.abs(Math.sin((f - w_tex)*2.0) / ((f - w_tex)*2.0 + 0.01));
+            val = base + tex_comp;
         }
-        ctx1d.stroke();
+        return Math.log10(val + 0.01) + 2; 
     }
 
-    // --- 3D Three.js ---
-    let scene, camera, renderer, mesh, controls;
-    const container3d = document.getElementById('container-3d');
+    // --- Draw Spatial (1D) ---
+    function drawSpatial() {
+        resizeCanvas(cvsSpatial);
+        const w = cvsSpatial.width, h = cvsSpatial.height;
+        const ctx = ctxSpatial; ctx.clearRect(0, 0, w, h);
+        const scaleX = w / 5, scaleY = h * 0.4, cx = w / 2, cy = h * 0.9;
 
-    function init3D() {
-        if(!container3d) return;
-        scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x000000, 0.05);
+        // GT Box
+        ctx.beginPath(); ctx.strokeStyle = '#9CA3AF'; ctx.lineWidth = 2; ctx.setLineDash([6, 6]);
+        const bx1 = cx - 1 * scaleX, bx2 = cx + 1 * scaleX;
+        ctx.moveTo(bx1, cy); ctx.lineTo(bx1, cy - 1.2 * scaleY); ctx.lineTo(bx2, cy - 1.2 * scaleY); ctx.lineTo(bx2, cy);
+        ctx.stroke(); ctx.setLineDash([]);
 
-        camera = new THREE.PerspectiveCamera(45, container3d.clientWidth / container3d.clientHeight, 0.1, 100);
-        camera.position.set(3, 4, 3);
-        
-        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(container3d.clientWidth, container3d.clientHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        container3d.appendChild(renderer.domElement);
-
-        controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true; controls.autoRotate = true; controls.autoRotateSpeed = 2.0;
-
-        const geometry = new THREE.PlaneGeometry(4, 4, 128, 128);
-        const material = new THREE.MeshStandardMaterial({ side: THREE.DoubleSide, vertexColors: true, roughness: 0.4, metalness: 0.2 });
-        mesh = new THREE.Mesh(geometry, material);
-        mesh.rotation.x = -Math.PI / 2;
-        scene.add(mesh);
-
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); scene.add(ambientLight);
-        const dirLight = new THREE.DirectionalLight(0xffffff, 1.0); dirLight.position.set(5, 10, 7); scene.add(dirLight);
-        const gridHelper = new THREE.GridHelper(4, 8, 0x333333, 0x111111); scene.add(gridHelper);
-
-        // Ground Box Outline
-        const squareGeo = new THREE.BufferGeometry().setFromPoints([
-            new THREE.Vector3(-1, 0.05, -1), new THREE.Vector3(1, 0.05, -1),
-            new THREE.Vector3(1, 0.05, 1), new THREE.Vector3(-1, 0.05, 1),
-            new THREE.Vector3(-1, 0.05, -1)
-        ]);
-        const line = new THREE.Line(squareGeo, new THREE.LineBasicMaterial({ color: 0x00ffff, opacity: 0.5, transparent: true }));
-        scene.add(line);
-
-        animate3D();
-    }
-
-    function updateMesh() {
-        if(!mesh) return;
-        const pos = mesh.geometry.attributes.position;
-        const count = pos.count;
-        const colors = []; const colorObj = new THREE.Color();
-        const getThermalColor = (t) => {
-            if(t < 0.2) return colorObj.setHSL(0.75, 1.0, t * 2.5); 
-            if(t < 0.5) return colorObj.setHSL(0.0, 1.0, t); 
-            if(t < 0.8) return colorObj.setHSL(0.08, 1.0, 0.5 + (t-0.5)); 
-            return colorObj.setHSL(0.16, 1.0, 0.8 + (t-0.8)); 
-        };
-
-        for (let i = 0; i < count; i++) {
-            const x = pos.getX(i), y = pos.getY(i);
-            const r = Math.sqrt(x*x + y*y); const r_box = Math.max(Math.abs(x), Math.abs(y));
-            let env, tex;
-            
-            if (visState.mode === '3dgs' || visState.mode === 'wipes') env = Math.exp(-0.5 * Math.pow(r / visState.sigma, 2));
-            else env = Math.exp(-0.5 * Math.pow(r_box / visState.sigma, visState.beta));
-            
-            if (visState.mode === '3dgs' || visState.mode === 'ges') tex = 1.0;
-            else tex = 0.6 + 0.4 * Math.cos(visState.freq * (x + y*0.2)); 
-            
-            const z = env * tex;
-            pos.setZ(i, z * 1.5);
-            const c = getThermalColor(z); colors.push(c.r, c.g, c.b);
+        // Signal
+        ctx.beginPath(); ctx.lineWidth = 4; ctx.strokeStyle = colors[visState.mode];
+        for (let i = 0; i <= w; i++) {
+            const x = (i - cx) / scaleX;
+            const y = getSpatialY(x);
+            if (i===0) ctx.moveTo(i, cy - y * scaleY); else ctx.lineTo(i, cy - y * scaleY);
         }
-        mesh.geometry.attributes.position.needsUpdate = true;
-        mesh.geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-        mesh.geometry.computeVertexNormals();
+        ctx.stroke();
     }
 
-    function animate3D() {
-        requestAnimationFrame(animate3D);
-        if(visState.autoRotate) controls.update();
-        renderer.render(scene, camera);
+    // --- Draw Frequency (1D) ---
+    function drawFreq() {
+        resizeCanvas(cvsFreq);
+        const w = cvsFreq.width, h = cvsFreq.height;
+        const ctx = ctxFreq; ctx.clearRect(0, 0, w, h);
+        const maxF = 25, scaleX = w / maxF, scaleY = h * 0.4, cy = h * 0.9;
+
+        // Grid
+        ctx.strokeStyle = '#E5E7EB'; ctx.lineWidth = 1;
+        [5, 10, 15, 20].forEach(f => { ctx.beginPath(); ctx.moveTo(f * scaleX, 0); ctx.lineTo(f * scaleX, h); ctx.stroke(); });
+
+        // Spectrum
+        ctx.beginPath(); ctx.lineWidth = 3; ctx.strokeStyle = colors[visState.mode];
+        for (let i = 0; i <= w; i++) {
+            const f = i / scaleX;
+            const mag = getFreqY(f);
+            const y = cy - (mag * scaleY * 0.8);
+            if (i===0) ctx.moveTo(i, y); else ctx.lineTo(i, y);
+        }
+        ctx.stroke();
+        
+        // Fill
+        ctx.lineTo(w, cy); ctx.lineTo(0, cy); ctx.fillStyle = hexToRgba(colors[visState.mode], 0.1); ctx.fill();
+
+        // Label
+        const label = document.getElementById('high-freq-label');
+        if (visState.mode === 's3tir' && visState.freq > 5) label.style.opacity = 1; else label.style.opacity = 0;
     }
 
-    // --- Control Logic ---
+    // --- Draw 2D Projection ---
+    function draw2D() {
+        if(!cvs2d) return;
+        const w = 200, h = 200; cvs2d.width = w; cvs2d.height = h;
+        const ctx = ctx2d; const imgData = ctx.createImageData(w, h); const data = imgData.data;
+        const cx = w/2, cy = h/2, domain = 2.5;
+
+        for(let py=0; py<h; py++) {
+            for(let px=0; px<w; px++) {
+                const x = (px - cx)/cx * domain;
+                const y = (py - cy)/cy * domain;
+                
+                // Box distance for GES/S3TIR, Euclidean for others
+                let r_env = (visState.mode === 'ges' || visState.mode === 's3tir') ? Math.max(Math.abs(x), Math.abs(y)) : Math.sqrt(x*x + y*y);
+                
+                // Envelope
+                let val = (visState.mode === '3dgs' || visState.mode === 'wipes') 
+                    ? Math.exp(-0.5 * Math.pow(r_env / visState.sigma, 2))
+                    : Math.exp(-0.5 * Math.pow(r_env / visState.sigma, visState.beta));
+
+                // Texture
+                if (visState.mode === 'wipes' || visState.mode === 's3tir') 
+                    val *= (0.6 + 0.4 * Math.cos(visState.freq * (x + y*0.2)));
+
+                // Color Map & Leakage
+                const isOutside = (Math.abs(x) > 1.05 || Math.abs(y) > 1.05);
+                let r,g,b;
+                if (isOutside && val > 0.05 && (visState.mode === 'wipes' || visState.mode === '3dgs')) {
+                    r = 255; g = 50; b = 50; // Red Leakage
+                    r = r * val + 20; 
+                } else {
+                    const v = Math.min(1, Math.max(0, val));
+                    if(v < 0.3) { r=v*3.33*70; g=0; b=v*3.33*100; } // Purple
+                    else if(v < 0.6) { r=70+(v-0.3)*3.33*185; g=(v-0.3)*3.33*50; b=100-(v-0.3)*3.33*100; } // Red
+                    else { r=255; g=50+(v-0.6)*2.5*205; b=(v-0.6)*2.5*150; } // Yellow
+                }
+                const idx = (py * w + px) * 4;
+                data[idx] = r; data[idx+1] = g; data[idx+2] = b; data[idx+3] = 255;
+            }
+        }
+        ctx.putImageData(imgData, 0, 0);
+
+        // GT Box
+        ctx.strokeStyle = '#22d3ee'; ctx.lineWidth = 2; ctx.setLineDash([4, 4]);
+        const boxSize = (1.0 / domain) * w;
+        ctx.strokeRect(cx - boxSize, cy - boxSize, boxSize*2, boxSize*2);
+    }
+
+    // --- Helpers ---
+    function resizeCanvas(c) {
+        const rect = c.parentElement.getBoundingClientRect();
+        c.width = rect.width * 2; c.height = rect.height * 2; 
+        const ctx = c.getContext('2d'); ctx.scale(2, 2);
+        return { w: rect.width, h: rect.height };
+    }
+    function hexToRgba(hex, alpha) {
+        const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+        return `rgba(${r},${g},${b},${alpha})`;
+    }
+
+    // --- Interaction ---
     function setMode(m) {
         visState.mode = m;
-        // UI Buttons
-        document.querySelectorAll('.mode-btn').forEach(btn => {
-            btn.className = "mode-btn tw-w-full tw-text-left tw-px-4 tw-py-3 tw-rounded-lg tw-text-sm tw-font-medium tw-border tw-border-gray-300 tw-bg-white tw-flex tw-items-center tw-gap-3 hover:tw-bg-gray-100 tw-transition-all";
+        document.querySelectorAll('.mode-btn').forEach(b => {
+            b.classList.remove('active', 'tw-bg-indigo-50', 'tw-border-indigo-600', 'tw-text-indigo-700', 'tw-border-2');
+            b.classList.add('tw-border-gray-300');
         });
-        document.getElementById(`btn-${m}`).className = "mode-btn active tw-w-full tw-text-left tw-px-4 tw-py-3 tw-rounded-lg tw-text-sm tw-font-medium tw-border-2 tw-border-indigo-600 tw-bg-indigo-50 tw-text-indigo-700 tw-flex tw-items-center tw-gap-3 tw-shadow-sm";
+        document.getElementById(`btn-${m}`).classList.add('active', 'tw-bg-indigo-50', 'tw-border-indigo-600', 'tw-text-indigo-700', 'tw-border-2');
+        document.getElementById(`btn-${m}`).classList.remove('tw-border-gray-300');
 
-        // Logic
         const cBeta = document.getElementById('ctrl-beta'), cFreq = document.getElementById('ctrl-freq');
-        if (m === '3dgs') { visState.beta=2.0; visState.freq=0.0; disable(cBeta, true); disable(cFreq, true); }
-        else if (m === 'ges') { visState.beta=8.0; visState.freq=0.0; disable(cBeta, false); disable(cFreq, true); }
-        else if (m === 'wipes') { visState.beta=2.0; visState.freq=10.0; disable(cBeta, true); disable(cFreq, false); }
-        else if (m === 's3tir') { visState.beta=10.0; visState.freq=12.0; disable(cBeta, false); disable(cFreq, false); }
+        const iBeta = document.getElementById('input-beta'), iFreq = document.getElementById('input-freq');
 
-        document.getElementById('input-beta').value = visState.beta;
-        document.getElementById('input-freq').value = visState.freq;
-        updateLabels();
-        document.getElementById('desc-box').innerHTML = descriptions[m];
-        document.getElementById('label-mode').innerText = m.toUpperCase().replace('S3TIR', 'S³-TIR');
-        
-        draw1D(); updateMesh();
+        if (m === '3dgs') { visState.beta=2; visState.freq=0; disable(cBeta, true); disable(cFreq, true); }
+        else if (m === 'ges') { visState.beta=10; visState.freq=0; disable(cBeta, false); disable(cFreq, true); }
+        else if (m === 'wipes') { visState.beta=2; visState.freq=12; disable(cBeta, true); disable(cFreq, false); }
+        else if (m === 's3tir') { visState.beta=12; visState.freq=15; disable(cBeta, false); disable(cFreq, false); }
+
+        iBeta.value = visState.beta; iFreq.value = visState.freq;
+        updateUI();
     }
 
     function disable(el, yes) {
-        if(yes) { el.classList.add('tw-opacity-40', 'tw-pointer-events-none'); }
-        else { el.classList.remove('tw-opacity-40', 'tw-pointer-events-none'); }
+        if(yes) el.classList.add('tw-opacity-40', 'tw-pointer-events-none');
+        else el.classList.remove('tw-opacity-40', 'tw-pointer-events-none');
     }
 
-    function updateLabels() {
+    function updateUI() {
         document.getElementById('val-beta').innerText = visState.beta;
         document.getElementById('val-freq').innerText = visState.freq;
+        document.getElementById('desc-box').innerHTML = descriptions[visState.mode];
+        document.getElementById('label-mode-overlay').innerText = visState.mode.toUpperCase().replace("S3TIR", "S³-TIR");
+        drawSpatial(); drawFreq(); draw2D();
     }
 
-    // Listeners
-    document.getElementById('input-beta').addEventListener('input', (e) => { visState.beta = parseFloat(e.target.value); updateLabels(); draw1D(); updateMesh(); });
-    document.getElementById('input-freq').addEventListener('input', (e) => { visState.freq = parseFloat(e.target.value); updateLabels(); draw1D(); updateMesh(); });
-    document.getElementById('check-rotate').addEventListener('change', (e) => { visState.autoRotate = e.target.checked; });
+    document.getElementById('input-beta').addEventListener('input', (e) => { visState.beta = parseFloat(e.target.value); updateUI(); });
+    document.getElementById('input-freq').addEventListener('input', (e) => { visState.freq = parseFloat(e.target.value); updateUI(); });
+    window.addEventListener('resize', () => updateUI());
+    window.addEventListener('load', () => setMode('s3tir'));
 
-    // Init
-    window.addEventListener('load', () => { init3D(); setMode('s3tir'); draw1D(); });
-    window.addEventListener('resize', () => { 
-        draw1D(); 
-        if(camera && renderer && container3d) {
-            camera.aspect = container3d.clientWidth / container3d.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container3d.clientWidth, container3d.clientHeight);
-        }
-    });
 </script>
 
 </body>
