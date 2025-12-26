@@ -28,7 +28,7 @@
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
-    /* Table Styling */
+    /* 表格样式 */
     .results-table {
       width: 100%; border-collapse: collapse; margin: 20px 0;
       font-family: 'Noto Sans', sans-serif; font-size: 0.9rem;
@@ -39,9 +39,8 @@
     .results-table tbody tr:nth-of-type(even) { background-color: #f9f9f9; }
     .results-table tbody tr:last-of-type { border-bottom: 2px solid #4F46E5; }
     .best { font-weight: bold; color: #d32f2f; }
-    .second { text-decoration: underline; color: #f57c00; }
     
-    /* Custom Slider Thumb Styling */
+    /* 滑块样式 */
     .slider-thumb::-webkit-slider-thumb {
         -webkit-appearance: none; appearance: none;
         width: 16px; height: 16px;
@@ -95,11 +94,6 @@
               </span>
               <span class="link-block">
                 <a href="#" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="#" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
                 </a>
               </span>
@@ -116,8 +110,8 @@
     <div class="hero-body">
       <img src="IJCAI-Teaser.jpg" class="center-image" style="width:100%; border-radius:10px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);" alt="S3-TIR Teaser"/>
       <h2 class="subtitle has-text-centered is-size-6" style="margin-top: 15px;">
-        <strong>Figure 1: Physical Duality and Primitive Evolution.</strong> 
-        Thermal scenes exhibit a unique conflict: diffusive smoothness driven by heat conduction (orange) and structural discontinuities (blue). Unlike Standard 3DGS (over-smoothed) or Frequency-Aware methods (signal leakage), our <strong>S<sup>3</sup>-TIR</strong> couples spatial truncation with spectral modulation, enabling the preservation of both sharp boundaries and rich internal textures.
+        <strong>Figure 1: Physical Duality.</strong> 
+        Thermal scenes exhibit a unique conflict: diffusive smoothness driven by heat conduction (orange) and structural discontinuities (blue). Our <strong>S<sup>3</sup>-TIR</strong> couples spatial truncation with spectral modulation to solve this.
       </h2>
     </div>
   </div>
@@ -136,9 +130,25 @@
           <p>
             To address this issue, we leverage the intrinsic frequency properties of thermal scenes.
             <strong>S<sup>3</sup>-TIR</strong> couples adaptive spatial support with internal spectral modulation via a unified generalized-exponential Gabor primitive.
-            This design utilizes spatial support as a physical truncation controller, confining high-frequency textures within sharp boundaries while maintaining smooth diffusion elsewhere.
-            Furthermore, we propose a <strong>frequency-aware deferred splatting</strong> scheme that enforces multi-view frequency consistency, anchoring frequency distributions to the 3D structure rather than view-dependent appearance.
-            Experiments on diverse benchmarks demonstrate that S<sup>3</sup>-TIR achieves state-of-the-art performance, notably reducing LPIPS by <strong>42.5%</strong> and improving PSNR by <strong>3.2%</strong> on the RGBT-Scenes dataset.
+            Furthermore, we propose a <strong>frequency-aware deferred splatting</strong> scheme that enforces multi-view frequency consistency.
+            Experiments demonstrate that S<sup>3</sup>-TIR achieves state-of-the-art performance, notably reducing LPIPS by <strong>42.5%</strong> on the RGBT-Scenes dataset.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Motivation: The Thermal Conflict</h2>
+        <img src="IJCAI26-analysis_page.jpg" style="width: 100%; margin-bottom: 20px; border-radius: 8px;" alt="Thermal Analysis"/>
+        <div class="content has-text-justified">
+          <p>
+            Standard Gaussians ($\beta=2$) act as low-pass filters, causing signal leakage at sharp thermal boundaries (Fig b). 
+            Our method employs a generalized-exponential support ($\beta=20$) to act as a physical truncation controller, strictly confining textures within geometry (Fig c).
           </p>
         </div>
       </div>
@@ -154,10 +164,10 @@
         <img src="IJCAI2026-Overview_page.jpg" style="width: 100%; margin-bottom: 20px; border-radius: 8px;" alt="S3-TIR Pipeline"/>
         <div class="content has-text-justified">
           <p>
-            Our pipeline consists of three key stages:
-            1) <strong>Coupled Spatial-Spectral Representation</strong>: We initialize Unified Primitives where an adaptive spatial support $\mathcal{S}$ (Generalized-Exponential) is coupled with a spectral modulation field $\mathcal{F}$ (Gabor). This allows physical truncation of textures at boundaries.
-            2) <strong>Frequency-Aware Deferred Splatting</strong>: Instead of rendering final color directly, we rasterize intrinsic attributes into intermediate G-Buffers: Low-Frequency Energy $\Psi_{low}$, High-Frequency Energy $\Psi_{high}$, and Spatial Sharpness $\Psi_{\beta}$.
-            3) <strong>Physics-Driven Optimization</strong>: We enforce Multi-View Frequency Consistency to anchor these frequency properties in 3D space, resolving the ambiguity between geometry and texture.
+            Our pipeline: 
+            1) <strong>Coupled Spatial-Spectral Representation</strong>: Initializing primitives with adaptive spatial support $\mathcal{S}$ and spectral field $\mathcal{F}$.
+            2) <strong>Frequency-Aware Deferred Splatting</strong>: Rasterizing intrinsic attributes into G-Buffers ($\Psi_{low}, \Psi_{high}, \Psi_{\beta}$).
+            3) <strong>Physics-Driven Optimization</strong>: Enforcing Multi-View Frequency Consistency.
           </p>
         </div>
       </div>
@@ -167,49 +177,18 @@
 
 <section class="section" style="background-color: #f8f9fa;">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Physics-Driven Analysis</h2>
     
-    <div class="columns is-vcentered mb-6">
-      <div class="column is-12">
-        <h3 class="title is-4">Frequency-Aware G-Buffer Decomposition</h3>
-        <img src="IJCAI-G_buffer.jpg" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);" alt="G-Buffer Visualization"/>
-        <p class="content has-text-justified mt-3">
-            <strong>Visualization of Decoupled Thermal Attributes:</strong> 
-            (Left) Reference Image. 
-            ($\Psi_{low}$) The Low-Frequency Map effectively models the smooth diffusive background driven by heat conduction.
-            ($\Psi_{high}$) The High-Frequency Map captures fine details and textures.
-            ($\Psi_{\beta}$) Crucially, the Spatial Sharpness Map precisely aligns with geometric discontinuities (e.g., the bike frame), validating our physical truncation strategy.
-        </p>
-      </div>
-    </div>
-
-    <div class="columns is-vcentered">
-      <div class="column is-12">
-        <h3 class="title is-4">Spectral Domain Analysis</h3>
-        <img src="Frequency_Analysis_Comparison_page-0001.jpg" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);" alt="Frequency Analysis"/>
-        <p class="content has-text-justified mt-3">
-            <strong>Frequency Domain Comparison:</strong> 
-            We compare the rendered spatial domain (top) and log-magnitude frequency domain (bottom). 
-            Standard methods often suffer from signal leakage (WIPES) or over-smoothing (3DGS). 
-            <strong>S<sup>3</sup>-TIR</strong> maintains a clean frequency spectrum similar to the Ground Truth (GT), preserving high-frequency details without introducing high-frequency noise or aliasing artifacts.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered mb-5">
       <div class="column is-full-width">
-        <h2 class="title is-3">Interactive Primitive Analysis</h2>
+        <h2 class="title is-3">Interactive Physics Analysis</h2>
         <p class="subtitle is-6">
-          <strong>Why S<sup>3</sup>-TIR works?</strong> Interact with the parameters to see how our primitive (Indigo) maintains sharp boundaries without spectral leakage compared to baselines.
+          <strong>Why S<sup>3</sup>-TIR works?</strong> Adjust the sliders to see how our primitive (Indigo) fits the ground truth better than standard methods.
         </p>
       </div>
     </div>
-    
+
     <div class="tw-grid tw-grid-cols-1 lg:tw-grid-cols-12 tw-gap-8">
+        
         <div class="lg:tw-col-span-3 tw-space-y-6">
             <div class="tw-bg-white tw-rounded-xl tw-shadow-sm tw-border tw-border-gray-200 tw-p-4">
                 <h3 class="tw-text-sm tw-font-semibold tw-text-gray-500 tw-uppercase tw-tracking-wider tw-mb-4">Select Primitive</h3>
@@ -247,14 +226,14 @@
                         <label class="tw-text-xs tw-font-medium tw-text-gray-600">Squareness ($\beta$)</label>
                         <span id="val-beta" class="tw-text-xs tw-text-gray-500">6</span>
                     </div>
-                    <input type="range" id="slider-beta" min="1.0" max="10.0" step="0.5" value="1.0" class="slider-thumb tw-w-full tw-h-2 tw-bg-gray-200 tw-rounded-lg tw-appearance-none tw-cursor-pointer">
+                    <input type="range" id="slider-beta" min="1.0" max="10.0" step="0.5" value="6.0" class="slider-thumb tw-w-full tw-h-2 tw-bg-gray-200 tw-rounded-lg tw-appearance-none tw-cursor-pointer">
                 </div>
                 <div class="tw-mb-4" id="container-freq">
                     <div class="tw-flex tw-justify-between tw-mb-1">
                         <label class="tw-text-xs tw-font-medium tw-text-gray-600">Internal Freq ($\omega$)</label>
                         <span id="val-freq" class="tw-text-xs tw-text-gray-500">10</span>
                     </div>
-                    <input type="range" id="slider-freq" min="0" max="20.0" step="1.0" value="0" class="slider-thumb tw-w-full tw-h-2 tw-bg-gray-200 tw-rounded-lg tw-appearance-none tw-cursor-pointer">
+                    <input type="range" id="slider-freq" min="0" max="20.0" step="1.0" value="10.0" class="slider-thumb tw-w-full tw-h-2 tw-bg-gray-200 tw-rounded-lg tw-appearance-none tw-cursor-pointer">
                 </div>
             </div>
         </div>
@@ -286,20 +265,49 @@
 
 <section class="section">
   <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Decomposed Thermal Attributes</h2>
+    <div class="columns is-vcentered mb-6">
+      <div class="column is-12">
+        <h3 class="title is-4">Frequency-Aware G-Buffer</h3>
+        <img src="IJCAI-G_buffer.jpg" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);" alt="G-Buffer Visualization"/>
+        <p class="content has-text-justified mt-3">
+            <strong>Visualization of Decoupled Thermal Attributes:</strong> 
+            ($\Psi_{low}$) captures diffusive background.
+            ($\Psi_{high}$) captures textures.
+            ($\Psi_{\beta}$) precisely aligns with geometric discontinuities, validating physical truncation.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background-color: #f8f9fa;">
+  <div class="container is-max-desktop">
+    <div class="columns is-vcentered">
+      <div class="column is-12">
+        <h3 class="title is-4 has-text-centered">Spectral Domain Analysis</h3>
+        <img src="Frequency_Analysis_Comparison_page-0001.jpg" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);" alt="Frequency Analysis"/>
+        <p class="content has-text-justified mt-3">
+            <strong>Frequency Domain Comparison:</strong> 
+            Comparison of rendered spatial domain (top) and log-magnitude frequency domain (bottom). 
+            <strong>S<sup>3</sup>-TIR</strong> preserves high-frequency details without the signal leakage seen in WIPES.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Experimental Results</h2>
     
     <div class="content has-text-centered mb-6">
-        <p>Qualitative comparison on the <strong>RGBT-Scenes</strong>, <strong>TI-NSD</strong>, and <strong>NTR</strong> datasets.</p>
+        <p>Qualitative comparison on <strong>RGBT-Scenes</strong>, <strong>TI-NSD</strong>, and <strong>NTR</strong>.</p>
     </div>
 
     <div class="columns is-centered">
       <div class="column is-full-width has-text-centered">
         <img src="IJCAI26-Experiments.jpg" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" alt="Qualitative Comparisons"/>
-        <p class="subtitle is-6 mt-2">
-            <strong>Figure 5: Qualitative Comparisons.</strong> 
-            We compare our method against state-of-the-art baselines. 
-            <strong>S<sup>3</sup>-TIR</strong> renders sharper edges (vs. 3DGS/Thermal3D-GS) and preserves internal textures (vs. GES) without the noise or jittering seen in other frequency-aware methods.
-        </p>
       </div>
     </div>
 
@@ -371,12 +379,6 @@
   </div>
 </footer>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script defer src="./static/js/fontawesome.all.min.js"></script>
-<script src="./static/js/bulma-carousel.min.js"></script>
-<script src="./static/js/bulma-slider.min.js"></script>
-<script src="./static/js/index.js"></script>
-
 <script>
     // --- State ---
     const state = {
@@ -384,8 +386,7 @@
         sigma: 1.0,
         beta: 6.0,
         freq: 10.0,
-        showGT: true,
-        showError: true
+        showGT: true
     };
 
     const colors = {
@@ -393,45 +394,42 @@
         'ges': '#10B981',    // Green
         'gabor': '#F97316',  // Orange
         's3tir': '#4F46E5',  // Indigo
-        'gt': '#9CA3AF',     // Gray
-        'leak': 'rgba(239, 68, 68, 0.2)', // Red
-        'miss': 'rgba(252, 211, 77, 0.3)' // Yellow
+        'gt': '#9CA3AF'      // Gray
     };
 
     const canvas = document.getElementById('mainCanvas');
     const ctx = canvas.getContext('2d');
 
-    // --- Logic ---
-    
+    // --- Math Logic ---
     function getGT(x) {
+        // Ground Truth: Box function with internal Cosine texture
         if (Math.abs(x) > 1.0) return 0;
         return 0.5 + 0.4 * Math.cos(10 * x);
     }
 
     function getModel(x) {
         const s = state.sigma;
-        const b = (state.primitive === '3dgs' || state.primitive === 'gabor') ? 1.0 : state.beta; 
-        
-        // Envelope calculation
+        // For 3DGS/Gabor, beta is implicitly 2 (Gaussian). For GES/S3-TIR, use slider.
         let power = 2.0;
         if (state.primitive === 'ges' || state.primitive === 's3tir') {
             power = state.beta; 
         }
 
+        // 1. Spatial Support (Envelope)
+        // Generalized Gaussian: exp( -0.5 * (|x|/s)^beta )
         let envelope = Math.exp( -0.5 * Math.pow(Math.abs(x)/s, power) );
 
-        // Content (Texture)
-        let content = 0.5;
+        // 2. Spectral Modulation (Texture)
+        let content = 0.5; // Default flat
         if (state.primitive === 'gabor' || state.primitive === 's3tir') {
             const f = state.freq;
             content = 0.5 + 0.4 * Math.cos(f * x);
-        } else {
-            content = 0.5; 
         }
         
         return envelope * content;
     }
 
+    // --- Drawing Logic ---
     function draw() {
         const dpr = window.devicePixelRatio || 1;
         const rect = canvas.parentNode.getBoundingClientRect();
@@ -444,7 +442,7 @@
         const w = rect.width;
         const h = rect.height;
         
-        // Plot settings
+        // Plot Settings
         const domain = 2.5; 
         const scaleX = w / (domain * 2);
         const scaleY = h * 0.8; 
@@ -458,17 +456,20 @@
             y: centerY - y * scaleY
         });
 
-        // 1. Draw Grid / Axes
+        // 1. Draw Axes
         ctx.beginPath();
         ctx.strokeStyle = '#E5E7EB';
         ctx.lineWidth = 1;
-        ctx.moveTo(0, centerY); ctx.lineTo(w, centerY); // X
-        ctx.moveTo(centerX, 0); ctx.lineTo(centerX, h); // Y
+        ctx.moveTo(0, centerY); ctx.lineTo(w, centerY); // X Axis
+        ctx.moveTo(centerX, 0); ctx.lineTo(centerX, h); // Y Axis
+        // Draw boundaries at x = -1 and x = 1
         const xLeft = toCanvas(-1, 0).x;
         const xRight = toCanvas(1, 0).x;
+        ctx.setLineDash([2, 2]);
         ctx.moveTo(xLeft, 0); ctx.lineTo(xLeft, h);
         ctx.moveTo(xRight, 0); ctx.lineTo(xRight, h);
         ctx.stroke();
+        ctx.setLineDash([]);
 
         const steps = 400;
         const stepSize = (domain * 2) / steps;
@@ -512,43 +513,51 @@
         ctx.stroke();
     }
 
+    // --- UI Logic ---
     function updateUI() {
+        // Update Buttons
         ['3dgs', 'ges', 'gabor', 's3tir'].forEach(k => {
             const btn = document.getElementById(`btn-${k}`);
+            // Reset styles
             btn.className = "tw-w-full tw-text-left tw-px-4 tw-py-3 tw-rounded-lg tw-border tw-transition-all tw-flex tw-items-center tw-space-x-3";
             
             if (k === state.primitive) {
+                // Active Style
                 btn.classList.add('tw-bg-indigo-50', 'tw-border-indigo-500', 'tw-text-indigo-700', 'tw-shadow-sm', 'tw-border-2');
                 btn.querySelector('span').classList.remove('tw-font-medium');
                 btn.querySelector('span').classList.add('tw-font-bold');
             } else {
+                // Inactive Style
                 btn.classList.add('hover:tw-bg-gray-50', 'tw-border-transparent', 'tw-text-gray-600');
                 btn.querySelector('span').classList.remove('tw-font-bold');
                 btn.querySelector('span').classList.add('tw-font-medium');
             }
         });
 
+        // Enable/Disable Sliders based on Primitive
         const isBox = (state.primitive === 'ges' || state.primitive === 's3tir');
         const isTexture = (state.primitive === 'gabor' || state.primitive === 's3tir');
 
         toggleSlider('container-beta', 'slider-beta', isBox);
         toggleSlider('container-freq', 'slider-freq', isTexture);
 
+        // Update Text Values
         document.getElementById('val-sigma').innerText = state.sigma;
         document.getElementById('val-beta').innerText = state.beta;
         document.getElementById('val-freq').innerText = state.freq;
 
+        // Update Explanatory Text
         const content = document.getElementById('analysis-content');
         let analysisHtml = '';
 
         if (state.primitive === '3dgs') {
-            analysisHtml = `<p class="tw-text-sm tw-text-gray-600"><strong class="tw-text-blue-600">Envelope:</strong> Gaussian (Bell curve). Fails to match the sharp walls.</p>`;
+            analysisHtml = `<p class="tw-text-sm tw-text-gray-600"><strong class="tw-text-blue-600">Envelope:</strong> Gaussian (Bell curve). Too blurry at edges.</p>`;
         } else if (state.primitive === 'ges') {
-            analysisHtml = `<p class="tw-text-sm tw-text-gray-600"><strong class="tw-text-green-600">Envelope:</strong> Super-Gaussian. Fits sharp walls perfectly.</p>`;
+            analysisHtml = `<p class="tw-text-sm tw-text-gray-600"><strong class="tw-text-green-600">Envelope:</strong> Super-Gaussian. Fits sharp walls but misses texture.</p>`;
         } else if (state.primitive === 'gabor') {
-            analysisHtml = `<p class="tw-text-sm tw-text-gray-600"><strong class="tw-text-orange-600">Envelope:</strong> Gaussian. Edges are soft/blurry.</p>`;
+            analysisHtml = `<p class="tw-text-sm tw-text-gray-600"><strong class="tw-text-orange-600">Texture:</strong> Has texture, but Gaussian envelope causes leakage.</p>`;
         } else if (state.primitive === 's3tir') {
-            analysisHtml = `<p class="tw-text-sm tw-text-gray-600"><strong class="tw-text-indigo-600">Envelope:</strong> Super-Gaussian. Sharp walls contain content.</p><div class="tw-mt-2 tw-text-xs tw-bg-green-50 tw-text-green-700 tw-p-2 tw-rounded">Result: High fidelity, no leakage.</div>`;
+            analysisHtml = `<p class="tw-text-sm tw-text-gray-600"><strong class="tw-text-indigo-600">Envelope + Texture:</strong> Super-Gaussian walls contain the texture perfectly. No leakage.</p>`;
         }
 
         content.innerHTML = analysisHtml;
@@ -569,24 +578,28 @@
 
     function setPrimitive(p) {
         state.primitive = p;
+        // Set sane defaults when switching
         if (p === 'ges' || p === 's3tir') {
             if (state.beta < 3.0) state.beta = 6.0; 
+            document.getElementById('slider-beta').value = state.beta;
         }
         if (p === 'gabor' || p === 's3tir') {
             if (state.freq < 1.0) state.freq = 10.0;
+            document.getElementById('slider-freq').value = state.freq;
         }
         updateUI();
     }
 
+    // Event Listeners
     document.getElementById('slider-sigma').addEventListener('input', (e) => { state.sigma = parseFloat(e.target.value); updateUI(); });
     document.getElementById('slider-beta').addEventListener('input', (e) => { state.beta = parseFloat(e.target.value); updateUI(); });
     document.getElementById('slider-freq').addEventListener('input', (e) => { state.freq = parseFloat(e.target.value); updateUI(); });
     
+    // Init
     window.addEventListener('resize', draw);
     window.addEventListener('load', () => {
         setPrimitive('s3tir');
     });
-
 </script>
 
 </body>
