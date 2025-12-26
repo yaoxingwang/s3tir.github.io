@@ -24,7 +24,13 @@
     }
   </script>
   
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']] // 允许使用 $ 符号编写行内公式
+      }
+    };
+  </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
@@ -108,7 +114,7 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <img src="IJCAI-Teaser.jpg" class="center-image" style="width:100%; border-radius:10px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);" alt="S3-TIR Teaser"/>
+      <img src="./static/IJCAI-Teaser.jpg" class="center-image" style="width:100%; border-radius:10px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);" alt="S3-TIR Teaser"/>
       <h2 class="subtitle has-text-centered is-size-6" style="margin-top: 15px;">
         <strong>Figure 1: Physical Duality.</strong> 
         Thermal scenes exhibit a unique conflict: diffusive smoothness driven by heat conduction (orange) and structural discontinuities (blue). Our <strong>S<sup>3</sup>-TIR</strong> couples spatial truncation with spectral modulation to solve this.
@@ -144,7 +150,7 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Motivation: The Thermal Conflict</h2>
-        <img src="IJCAI26-analysis_page.jpg" style="width: 100%; margin-bottom: 20px; border-radius: 8px;" alt="Thermal Analysis"/>
+        <img src="./static/IJCAI26-analysis_page.jpg" style="width: 100%; margin-bottom: 20px; border-radius: 8px;" alt="Thermal Analysis"/>
         <div class="content has-text-justified">
           <p>
             Standard Gaussians ($\beta=2$) act as low-pass filters, causing signal leakage at sharp thermal boundaries (Fig b). 
@@ -161,7 +167,7 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Method Overview</h2>
-        <img src="IJCAI2026-Overview_page.jpg" style="width: 100%; margin-bottom: 20px; border-radius: 8px;" alt="S3-TIR Pipeline"/>
+        <img src="./static/IJCAI2026-Overview_page.jpg" style="width: 100%; margin-bottom: 20px; border-radius: 8px;" alt="S3-TIR Pipeline"/>
         <div class="content has-text-justified">
           <p>
             Our pipeline: 
@@ -269,7 +275,7 @@
     <div class="columns is-vcentered mb-6">
       <div class="column is-12">
         <h3 class="title is-4">Frequency-Aware G-Buffer</h3>
-        <img src="IJCAI-G_buffer.jpg" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);" alt="G-Buffer Visualization"/>
+        <img src="./static/IJCAI-G_buffer.jpg" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);" alt="G-Buffer Visualization"/>
         <p class="content has-text-justified mt-3">
             <strong>Visualization of Decoupled Thermal Attributes:</strong> 
             ($\Psi_{low}$) captures diffusive background.
@@ -286,7 +292,7 @@
     <div class="columns is-vcentered">
       <div class="column is-12">
         <h3 class="title is-4 has-text-centered">Spectral Domain Analysis</h3>
-        <img src="Frequency_Analysis_Comparison_page-0001.jpg" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);" alt="Frequency Analysis"/>
+        <img src="./static/Frequency_Analysis_Comparison_page-0001.jpg" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);" alt="Frequency Analysis"/>
         <p class="content has-text-justified mt-3">
             <strong>Frequency Domain Comparison:</strong> 
             Comparison of rendered spatial domain (top) and log-magnitude frequency domain (bottom). 
@@ -307,7 +313,7 @@
 
     <div class="columns is-centered">
       <div class="column is-full-width has-text-centered">
-        <img src="IJCAI26-Experiments.jpg" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" alt="Qualitative Comparisons"/>
+        <img src="./static/IJCAI26-Experiments.jpg" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" alt="Qualitative Comparisons"/>
       </div>
     </div>
 
