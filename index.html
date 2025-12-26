@@ -7,7 +7,8 @@
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
 
@@ -34,7 +35,7 @@
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
-    /* --- 表格样式优化 (Academic Style) --- */
+    /* --- 表格样式 --- */
     .table-container {
       overflow-x: auto;
       margin: 20px 0;
@@ -49,10 +50,10 @@
       background-color: white;
     }
     .academic-table thead tr:first-child th {
-        border-top: 2px solid #333; /* Toprule */
+        border-top: 2px solid #333;
     }
     .academic-table thead tr:last-child th {
-        border-bottom: 1px solid #333; /* Midrule */
+        border-bottom: 1px solid #333;
         padding-bottom: 10px;
     }
     .academic-table th, .academic-table td {
@@ -65,21 +66,20 @@
       font-weight: 600;
       color: #1a1a1a;
     }
-    /* 模拟 LaTeX cmidrule */
     .group-header {
       border-bottom: 1px solid #ccc; 
     }
     .academic-table tbody tr:last-child td {
-        border-bottom: 2px solid #333; /* Bottomrule */
+        border-bottom: 2px solid #333;
     }
     .academic-table tbody tr:hover {
       background-color: #f9fafb;
     }
     
-    /* 排名颜色 (对应 LaTeX cellcolor) */
-    .best-1 { background-color: #ffcccc; font-weight: bold; } /* red!25 */
-    .best-2 { background-color: #ffedcc; } /* orange!25 */
-    .best-3 { background-color: #ffffcc; } /* yellow!25 */
+    /* 排名颜色 */
+    .best-1 { background-color: #ffcccc; font-weight: bold; } 
+    .best-2 { background-color: #ffedcc; } 
+    .best-3 { background-color: #ffffcc; } 
     
     .method-col { text-align: left !important; padding-left: 15px !important; font-weight: 500; }
     .metric-header { font-size: 0.85em; color: #555; }
@@ -122,11 +122,11 @@
           <h1 class="title is-1 publication-title">S<sup>3</sup>-TIR: Coupled Spatial-Spectral Splatting for Thermal Novel View Synthesis</h1>
           
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><a href="#">Anonymous Authors</a></span>
+            <span class="author-block">Anonymous Author(s)</span>
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block">Northwestern Polytechnical University</span>
+            <span class="author-block">Anonymous Affiliation</span>
           </div>
 
           <div class="column has-text-centered">
@@ -134,6 +134,11 @@
               <span class="link-block">
                 <a href="#" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span>
                 </a>
               </span>
               <span class="link-block">
@@ -165,7 +170,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
+        <h2 class="title is-3"><span class="icon is-small" style="margin-right: 8px;"><i class="fas fa-align-left"></i></span> Abstract</h2>
         <div class="content has-text-justified">
           <p>
             We present <strong>S<sup>3</sup>-TIR</strong> (<strong>C</strong>oupled <strong>S</strong>patial-<strong>S</strong>pectral <strong>S</strong>platting), a physics-driven framework for high-fidelity thermal infrared (TIR) novel view synthesis.
@@ -187,7 +192,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Motivation: The Thermal Conflict</h2>
+        <h2 class="title is-3"><span class="icon is-small" style="margin-right: 8px;"><i class="fas fa-lightbulb"></i></span> Motivation: The Thermal Conflict</h2>
         <img src="./static/images/IJCAI26-analysis_page.jpg" style="width: 100%; margin-bottom: 20px; border-radius: 8px;" alt="Thermal Analysis"/>
         <div class="content has-text-justified">
           <p>
@@ -204,7 +209,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Method Overview</h2>
+        <h2 class="title is-3"><span class="icon is-small" style="margin-right: 8px;"><i class="fas fa-cogs"></i></span> Method Overview</h2>
         <img src="./static/images/IJCAI2026-Overview_page.jpg" style="width: 100%; margin-bottom: 20px; border-radius: 8px;" alt="S3-TIR Pipeline"/>
         <div class="content has-text-justified">
           <p>
@@ -224,7 +229,7 @@
     
     <div class="columns is-centered has-text-centered mb-5">
       <div class="column is-full-width">
-        <h2 class="title is-3">Interactive Physics Analysis</h2>
+        <h2 class="title is-3"><span class="icon is-small" style="margin-right: 8px;"><i class="fas fa-hand-pointer"></i></span> Interactive Physics Analysis</h2>
         <p class="subtitle is-6">
           <strong>Why S<sup>3</sup>-TIR works?</strong> Adjust the sliders to see how our primitive (Indigo) fits the ground truth better than standard methods.
         </p>
@@ -238,19 +243,19 @@
                 <h3 class="tw-text-sm tw-font-semibold tw-text-gray-500 tw-uppercase tw-tracking-wider tw-mb-4">Select Primitive</h3>
                 <div class="tw-space-y-2">
                     <button id="btn-3dgs" onclick="setPrimitive('3dgs')" class="tw-w-full tw-text-left tw-px-4 tw-py-3 tw-rounded-lg tw-border tw-transition-all tw-flex tw-items-center tw-space-x-3 hover:tw-bg-gray-50 tw-border-transparent tw-text-gray-600">
-                        <div class="tw-w-3 tw-h-3 tw-rounded-full tw-bg-blue-500"></div>
+                        <i class="fas fa-circle tw-text-blue-500 tw-text-xs"></i>
                         <span class="tw-font-medium">Standard 3DGS</span>
                     </button>
                     <button id="btn-ges" onclick="setPrimitive('ges')" class="tw-w-full tw-text-left tw-px-4 tw-py-3 tw-rounded-lg tw-border tw-transition-all tw-flex tw-items-center tw-space-x-3 hover:tw-bg-gray-50 tw-border-transparent tw-text-gray-600">
-                        <div class="tw-w-3 tw-h-3 tw-rounded-full tw-bg-green-500"></div>
+                        <i class="fas fa-square tw-text-green-500 tw-text-xs"></i>
                         <span class="tw-font-medium">GES (Box-like)</span>
                     </button>
                     <button id="btn-gabor" onclick="setPrimitive('gabor')" class="tw-w-full tw-text-left tw-px-4 tw-py-3 tw-rounded-lg tw-border tw-transition-all tw-flex tw-items-center tw-space-x-3 hover:tw-bg-gray-50 tw-border-transparent tw-text-gray-600">
-                        <div class="tw-w-3 tw-h-3 tw-rounded-full tw-bg-orange-500"></div>
+                        <i class="fas fa-wave-square tw-text-orange-500 tw-text-xs"></i>
                         <span class="tw-font-medium">Standard Gabor</span>
                     </button>
                     <button id="btn-s3tir" onclick="setPrimitive('s3tir')" class="tw-w-full tw-text-left tw-px-4 tw-py-3 tw-rounded-lg tw-border-2 tw-transition-all tw-flex tw-items-center tw-space-x-3 tw-bg-indigo-50 tw-border-indigo-500 tw-text-indigo-700 tw-shadow-sm">
-                        <div class="tw-w-3 tw-h-3 tw-rounded-full tw-bg-indigo-600"></div>
+                        <i class="fas fa-star tw-text-indigo-600 tw-text-xs"></i>
                         <span class="tw-font-bold">S³-TIR (Ours)</span>
                     </button>
                 </div>
@@ -309,7 +314,7 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Decomposed Thermal Attributes</h2>
+    <h2 class="title is-3 has-text-centered"><span class="icon is-small" style="margin-right: 8px;"><i class="fas fa-layer-group"></i></span> Decomposed Thermal Attributes</h2>
     <div class="columns is-vcentered mb-6">
       <div class="column is-12">
         <h3 class="title is-4">Frequency-Aware G-Buffer</h3>
@@ -329,7 +334,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-vcentered">
       <div class="column is-12">
-        <h3 class="title is-4 has-text-centered">Spectral Domain Analysis</h3>
+        <h3 class="title is-4 has-text-centered"><span class="icon is-small" style="margin-right: 8px;"><i class="fas fa-wave-square"></i></span> Spectral Domain Analysis</h3>
         <img src="./static/images/Frequency_Analysis_Comparison_page-0001.jpg" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);" alt="Frequency Analysis"/>
         <p class="content has-text-justified mt-3">
             <strong>Frequency Domain Comparison:</strong> 
@@ -343,7 +348,7 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Experimental Results</h2>
+    <h2 class="title is-3 has-text-centered"><span class="icon is-small" style="margin-right: 8px;"><i class="fas fa-chart-bar"></i></span> Experimental Results</h2>
     
     <div class="content has-text-centered mb-6">
         <p>Qualitative comparison on <strong>RGBT-Scenes</strong>, <strong>TI-NSD</strong>, and <strong>NTR</strong>.</p>
@@ -466,7 +471,7 @@
 <script>
     // --- State ---
     const state = {
-        primitive: 's3tir', // 3dgs, ges, gabor, s3tir
+        primitive: 's3tir', 
         sigma: 1.0,
         beta: 6.0,
         freq: 10.0,
@@ -486,21 +491,18 @@
 
     // --- Math Logic ---
     function getGT(x) {
-        // Ground Truth: Box function with internal Cosine texture
         if (Math.abs(x) > 1.0) return 0;
         return 0.5 + 0.4 * Math.cos(10 * x);
     }
 
     function getModel(x) {
         const s = state.sigma;
-        // For 3DGS/Gabor, beta is implicitly 2 (Gaussian). For GES/S3-TIR, use slider.
         let power = 2.0;
         if (state.primitive === 'ges' || state.primitive === 's3tir') {
             power = state.beta; 
         }
 
         // 1. Spatial Support (Envelope)
-        // Generalized Gaussian: exp( -0.5 * (|x|/s)^beta )
         let envelope = Math.exp( -0.5 * Math.pow(Math.abs(x)/s, power) );
 
         // 2. Spectral Modulation (Texture)
@@ -546,7 +548,7 @@
         ctx.lineWidth = 1;
         ctx.moveTo(0, centerY); ctx.lineTo(w, centerY); // X Axis
         ctx.moveTo(centerX, 0); ctx.lineTo(centerX, h); // Y Axis
-        // Draw boundaries at x = -1 and x = 1
+        // Draw boundaries
         const xLeft = toCanvas(-1, 0).x;
         const xRight = toCanvas(1, 0).x;
         ctx.setLineDash([2, 2]);
@@ -618,7 +620,7 @@
             }
         });
 
-        // Enable/Disable Sliders based on Primitive
+        // Enable/Disable Sliders
         const isBox = (state.primitive === 'ges' || state.primitive === 's3tir');
         const isTexture = (state.primitive === 'gabor' || state.primitive === 's3tir');
 
@@ -662,7 +664,6 @@
 
     function setPrimitive(p) {
         state.primitive = p;
-        // Set sane defaults when switching
         if (p === 'ges' || p === 's3tir') {
             if (state.beta < 3.0) state.beta = 6.0; 
             document.getElementById('slider-beta').value = state.beta;
@@ -674,12 +675,10 @@
         updateUI();
     }
 
-    // Event Listeners
     document.getElementById('slider-sigma').addEventListener('input', (e) => { state.sigma = parseFloat(e.target.value); updateUI(); });
     document.getElementById('slider-beta').addEventListener('input', (e) => { state.beta = parseFloat(e.target.value); updateUI(); });
     document.getElementById('slider-freq').addEventListener('input', (e) => { state.freq = parseFloat(e.target.value); updateUI(); });
     
-    // Init
     window.addEventListener('resize', draw);
     window.addEventListener('load', () => {
         setPrimitive('s3tir');
